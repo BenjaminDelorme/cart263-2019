@@ -1,0 +1,35 @@
+/*********************************************
+
+This is the style file for this project.
+
+**********************************************/
+body{
+  font-family: Courier;
+  font-size: 1.2em;
+  margin-left: 4%;
+  margin-right: 4%;
+  cursor: pointer;
+}
+div {
+  margin-bottom: 20px;
+}
+p{
+  margin-top: 10px;
+  font-size: 0.8em;
+  margin-bottom: 30px;
+}
+h2{
+  margin-bottom: 0px;
+}
+.redacted{
+  background-color: black;
+  color: transparent;
+}
+ .revealed{
+   background-color: transparent;
+   color: red;
+ }
+
+.found{
+  background-color: yellow;
+}

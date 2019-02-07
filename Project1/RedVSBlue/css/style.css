@@ -1,0 +1,30 @@
+/*********************************************
+
+This is the style file for this project.
+
+**********************************************/
+html{position: fixed;width: 100%;height: 100%;}
+body{font-family: 'Raleway', sans-serif;width: 100%;height: 100%;margin: 0;padding: 0;border: 0;}
+.textBox{
+  font-size: 1.5vw;
+  color: white;
+  clear: right;
+  position: absolute;background-color: #282828;
+  border-width: 5px;border-color: black; border-style: solid;padding-left: 8px;padding-right: 8px;
+}
+h5{
+  position: absolute;z-index: 5000; margin-left: 45%;font-size: 3vw;bottom: 0px;margin-bottom: 8%;color: white;
+  -webkit-text-stroke-width: 0.2px;-webkit-text-stroke-color: black;
+}
+#right{
+  position: absolute;background-color: #9af261; width: 50%;height: 15%;bottom: 0px;opacity: 1;
+}
+#wrong{
+  position: absolute;background-color:#e2684b; width: 50%;height: 15%;bottom: 0px;right: 0px;opacity:1;
+}
+#wordZone{
+width: 100%;height: 85%; background-color: #bfbfbf;position: absolute;border-left: 0px;
+}
+h2{
+  margin-left: 40%;margin-top: 5%;font-size: 3vw;color: white;
+}

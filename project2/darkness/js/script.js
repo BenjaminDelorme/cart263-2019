@@ -12,33 +12,37 @@ let point;
 let guess = ["left","up","right","down"];
 let $points = $('<div class="points"></div>');
 let voices = [
-"UK English Female",
-"UK English Male",
-"US English Female",
-"Spanish Female",
-"French Female",
-"Deutsch Female",
-"Italian Female",
-"Greek Female",
+
+
 "Hungarian Female",
 "Turkish Female",
-"Russian Female",
-"Dutch Female",
-"Swedish Female",
+ "Russian Female",
+
 "Norwegian Female",
 "Japanese Female",
-"Korean Female",
-"Chinese Female",
-"Hindi Female",
-"Serbian Male",
-"Croatian Male",
-"Bosnian Male",
-"Romanian Male",
-"Catalan Male",
+
 "Australian Female",
-"Finnish Female"
+"Finnish Female",
+
+"Arabic Male"  ,
+
+"Czech Female",
+"Danish Female",
+
+"Indonesian Female",
+
+"Polish Female" ,
+
+"Portuguese Female",
+
+"Slovak Female",
+
+"Thai Female",
+"Vietnamese Male"
+
 ];
 let goodVoice;
+let rng;
 //stackoverflow.com/questions/3385936/jquery-follow-the-cursor-with-a-div
 
  $(document).ready(function(){
@@ -48,7 +52,6 @@ let goodVoice;
     $right = $("#right");
     $down = $("#down");
    $avatar.hide();
-
    $("#start").hover(function(){$("#start").css({cursor: "pointer"}) });
 
    $("#start").on('click', function(){
@@ -61,6 +64,20 @@ let goodVoice;
        $mouseX = e.pageX-10;
        $mouseY = e.pageY-10;
    });
+
+   ////voice text
+
+   // $('html').on('click',function(){
+   //   let options = {
+   //     pitch: 0.1,
+   //     rate: 0.8,
+   //     volume: 0.4
+   //   };
+   //
+   //     responsiveVoice.speak("right","Czech Female",options);
+   // });
+
+
   });
 
 
@@ -84,6 +101,13 @@ function update(){
   $yp += (($mouseY - $yp)/12);
   $("#avatar").css({left:$xp +'px', top:$yp +'px'});
   }, 20);
+
+
+  setInterval(hint,Math.floor(Math.random() * 3000));
+  // setInterval(function(){
+  // },Math.floor(Math.random() * 2000) );
+
+
 
 // $left.hover(function(){
 //   console.log("onLeft!");
@@ -127,7 +151,23 @@ console.log(correctGuess);
 
 function hint(){
   let randomVoice = voices[Math.floor(Math.random() * voices.length)];
-  let voiceRange = []
+  let randomDirect = guess[Math.floor(Math.random() * guess.length)];
+  let options = {
+    pitch: 0.15,
+    rate: 0.9,
+    volume: 0.4
+  };
+
+    rng=Math.random();
+    console.log(rng);
+
+  if(rng>= 0.7){
+    responsiveVoice.speak(correctGuess,goodVoice,options);
+
+  }else{
+    responsiveVoice.speak(randomDirect,randomVoice,options);
+  }
+
 }
 
 //

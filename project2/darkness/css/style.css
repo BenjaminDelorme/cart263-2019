@@ -11,3 +11,4 @@ h1{margin-left:40%;margin-top: 20%; color: white;}
 .light{background-color: red;  color: white;position: absolute;}
 #left{top:30vw;left:10vw;}#up{top:10vw;left:50vw;}#right{top:30vw;left:90vw;}#down{top:55vw;left:50vw;}
 #avatar{z-index: 4000;}
+.points{color: white;position: absolute;background-color: black;}

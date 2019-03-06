@@ -3,17 +3,27 @@
 This is the style file for this project.
 
 **********************************************/
-div{position: absolute;;}
+div{-khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;}
+
+div{position: absolute;}
 /* html{cursor: none;} */
-body{background-color: black;}
+body{background-color: black;font-family: 'Shadows Into Light';font-weight: 100;white-space: nowrap;}
 
 h1{margin-left:40%;margin-top: 20%; color: white;}
-.light{position: absolute;width:20vw;}
+.light{position: absolute;width:25vw;}
 /* .light{position: absolute;width: 20px;} */
 #left{top:20vw;left:5vw;}#up{top:0vw;left:35vw;}#right{top:20vw;left:70vw;}#down{top:30vw;left:35vw;}
 #avatar{z-index: 4000;pointer-events: none;}
 .points{color: white;position: absolute;background-color: black;}
-.ghost{width:50px;pointer-events: none;}
+.ghost{width:100px;pointer-events: none;}
 #end{display: none;}
 #one{top:5vw;left:5vw;}#two{top:5vw;left:35vw;}#three{top:5vw;left:65vw;}
 #zoneWon{display:none;}
+#girl{width:90px;position: absolute; left:60vw;top:30vw;}
+.direction{position: absolute;color: white;font-size: 3vw;display:none;pointer-events: none;}
+#goleft{top:26vw;left:7vw;transform: rotate(270deg);}#goup{top:0vw;left:44vw;}
+#goright{top:26vw;left:84vw;transform: rotate(90deg);}#godown{top:42vw;left:42vw;transform: rotate(180deg);}

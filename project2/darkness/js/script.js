@@ -13,26 +13,13 @@ let guess = ["left","up","right","down"];
 let $points = $('<div class="points"></div>');
 let $ghost = $('<img class="ghost" src=""></img>');
 let voices = [
-
-
 "Hungarian Female",
 "Turkish Female",
-
-
 "Norwegian Female",
-
-"Australian Female",
-
 "Arabic Male",
-
-
 "Danish Female",
-
-
 "Polish Female",
-
 "Portuguese Female",
-
 "Thai Female",
 "Vietnamese Male"
 
@@ -44,6 +31,13 @@ let light1 = "assets/images/light1.png";
 let light2 = "assets/images/light2.png";
 let flickInterval;
 let hintInterval;
+let randomVoice;
+let randomLaugh;
+let randomDirect;
+let options;
+let music = new Audio('assets/sounds/music.mp3');
+let fire = new Audio('assets/sounds/fire.mp3');
+let flame = new Audio('assets/sounds/flame.mp3');
 //stackoverflow.com/questions/3385936/jquery-follow-the-cursor-with-a-div
 
  $(document).ready(function(){
@@ -77,7 +71,7 @@ let hintInterval;
    //     volume: 0.4
    //   };
    //
-   //     responsiveVoice.speak("left up right down","Vietnamese Male",options);
+   //      responsiveVoice.speak("left up right down","Thai Female",options);
    // });
 
 
@@ -85,7 +79,10 @@ let hintInterval;
 
 
 function startGame(){
-  $avatar.fadeIn();
+   music.play();
+   music.loop = true;
+  fire.play();
+  fire.loop=true;
   $('html').css({cursor:"none"});
   point=5;
   goodVoice = voices[Math.floor(Math.random() * voices.length)];
@@ -111,21 +108,39 @@ function update(){
 
 $ghost.attr("src","assets/images/ghost1.png");
 $avatar.append($ghost);
+setInterval(function(){
+  if($ghost.attr('src')==="assets/images/ghost1.png" ){
+        $ghost.attr('src',"assets/images/ghost2.png");
+    } else{
+      $ghost.attr('src',"assets/images/ghost1.png");
+    }
+},820)
 
+setInterval(function(){
+  if($("#girl").attr('src')==="assets/images/ghostFe1.png" ){
+        $("#girl").attr('src',"assets/images/ghostFe2.png");
+    } else{
+      $("#girl").attr('src',"assets/images/ghostFe1.png");
+    }
+},730)
+//
 
-//
-// $left.hover(function(){
-// });
-//
-// $up.hover(function(){
-//   console.log("onUp!");
-// });
-// $right.hover(function(){
-//   console.log("onRight!");
-// });
-// $down.hover(function(){
-//   console.log("onDown!");
-// });
+$left.hover(function(){
+  $("#goleft").fadeIn();
+  },function(){$("#goleft").fadeOut();});
+
+$up.hover(function(){
+  $("#goup").fadeIn();
+  },function(){$("#goup").fadeOut();});
+
+$right.hover(function(){
+  $("#goright").fadeIn();
+},function(){$("#goright").fadeOut();});
+
+$down.hover(function(){
+  $("#godown").fadeIn();
+  },function(){$("#godown").fadeOut();});
+
 
 
 
@@ -135,7 +150,9 @@ $(".light").on('click',function(){
   if($(this).attr("id")===correctGuess){
       console.log('correct');
       point++;
-
+      $(".direction").hide();
+      $avatar.fadeOut();
+        flame.play();
       console.log(point);
       clearInterval(flickInterval);
       clearInterval(hintInterval);
@@ -163,10 +180,14 @@ $(".light").on('click',function(){
         }
 
     }else{
+      if(point<10){
         $(this).attr('src',"assets/images/redLight1.png");
       point--;
+      }
+
       console.log(point);
       if(point<=0){
+        $avatar.fadeOut();
         gameOver();
         console.log("u ded bro");
       }
@@ -197,7 +218,8 @@ function newRound(){
 flickInterval = setInterval(flicker,500);
 correctGuess = guess[Math.floor(Math.random() * guess.length)];
 console.log(correctGuess);
-  hintInterval = setInterval(hint,1000);
+  hintInterval = setInterval(hint,1500);
+  $avatar.delay(500).fadeIn(700);
 
 
 
@@ -207,18 +229,18 @@ console.log(correctGuess);
 
 
 function hint(){
-  let randomVoice = voices[Math.floor(Math.random() * voices.length)];
-  let randomDirect = guess[Math.floor(Math.random() * guess.length)];
-  let options = {
-    pitch: 0.15,
-    rate: 0.9,
+   randomVoice = voices[Math.floor(Math.random() * voices.length)];
+   randomDirect = guess[Math.floor(Math.random() * guess.length)];
+  options = {
+    pitch: 0.1,
+    rate: 0.8,
     volume: 0.4
   };
-
+    console.log(randomVoice);
     rng=Math.random();
     console.log(rng);
 
-  if(rng>= 0.7){
+  if(rng>= 0.75){
     responsiveVoice.speak(correctGuess,goodVoice,options);
 
   }else{
@@ -229,11 +251,32 @@ function hint(){
 
 function gameOver(){
     $("#zones").fadeOut(500);
+    $("#direct").fadeOut(500);
+    fire.pause();
+    $avatar.delay(500).fadeIn(700);
     $("#end").delay(1200).fadeIn(1000);
-
+    setInterval(laugh,1800);
+    clearInterval(hintInterval);
 }
+
 function gameWon(){
     $("#zones").fadeOut(500);
     $("#zoneWon").delay(1200).fadeIn(1000);
+    flickInterval = setInterval(flicker,500);
+    $avatar.fadeIn();
+    $("#girl").hover(function(){location.reload();});
+}
 
+function laugh(){
+  let laughs = ["hihi", "hihihihhh", "hihihih","hhiihi","hihihi","hihihihihi"]
+  randomVoice = voices[Math.floor(Math.random() * voices.length)];
+  randomLaugh = laughs[Math.floor(Math.random() * laughs.length)];
+
+  options = {
+    pitch: 0.07,
+    rate: 0.6,
+    volume: 0.4
+  };
+
+  responsiveVoice.speak(randomLaugh,randomVoice,options);
 }

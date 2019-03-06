@@ -3,12 +3,14 @@
 This is the style file for this project.
 
 **********************************************/
-div{position: absolute;background-color: red;}
+div{position: absolute;;}
 /* html{cursor: none;} */
 body{background-color: black;}
 
 h1{margin-left:40%;margin-top: 20%; color: white;}
-.light{background-color: red;  color: white;position: absolute;}
-#left{top:30vw;left:10vw;}#up{top:10vw;left:50vw;}#right{top:30vw;left:90vw;}#down{top:55vw;left:50vw;}
-#avatar{z-index: 4000;}
+.light{position: absolute;width:20vw;}
+/* .light{position: absolute;width: 20px;} */
+#left{top:20vw;left:5vw;}#up{top:0vw;left:35vw;}#right{top:20vw;left:70vw;}#down{top:30vw;left:35vw;}
+#avatar{z-index: 4000;pointer-events: none;}
 .points{color: white;position: absolute;background-color: black;}
+.ghost{width:50px;pointer-events: none;}

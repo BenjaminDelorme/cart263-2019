@@ -17,26 +17,21 @@ let voices = [
 
 "Hungarian Female",
 "Turkish Female",
- "Russian Female",
+
 
 "Norwegian Female",
-"Japanese Female",
 
 "Australian Female",
-"Finnish Female",
 
 "Arabic Male",
 
-"Czech Female",
+
 "Danish Female",
 
-"Indonesian Female",
 
 "Polish Female",
 
 "Portuguese Female",
-
-"Slovak Female",
 
 "Thai Female",
 "Vietnamese Male"
@@ -48,6 +43,7 @@ let $lights;
 let light1 = "assets/images/light1.png";
 let light2 = "assets/images/light2.png";
 let flickInterval;
+let hintInterval;
 //stackoverflow.com/questions/3385936/jquery-follow-the-cursor-with-a-div
 
  $(document).ready(function(){
@@ -81,7 +77,7 @@ let flickInterval;
    //     volume: 0.4
    //   };
    //
-   //     responsiveVoice.speak("right","Czech Female",options);
+   //     responsiveVoice.speak("left up right down","Vietnamese Male",options);
    // });
 
 
@@ -139,8 +135,15 @@ $(".light").on('click',function(){
   if($(this).attr("id")===correctGuess){
       console.log('correct');
       point++;
+
       console.log(point);
       clearInterval(flickInterval);
+      clearInterval(hintInterval);
+
+      if(point>=10){
+        gameWon();
+        console.log("u won bro");
+      }
       $('body').append($points);
         if($(this).attr("id")==="left"){
           $(this).attr('src',"assets/images/blueLight1.png");
@@ -155,17 +158,26 @@ $(".light").on('click',function(){
           $(this).attr('src',"assets/images/blueLight1.png");
           $("#zones").delay(500).animate({top: '-100%'},{ duration: 500}).fadeOut().animate({top: '0%'},{ duration: 100});
         }
-      setTimeout(newRound,1000);
+        if(point<10){
+          setTimeout(newRound,1000);
+        }
+
     }else{
+        $(this).attr('src',"assets/images/redLight1.png");
       point--;
       console.log(point);
+      if(point<=0){
+        gameOver();
+        console.log("u ded bro");
+      }
       // $(this).effect('shake');
     }
   });
 
 
-  $points.text("points: "+point);
-  $('body').append($points);
+
+  // $points.text("points: "+point);
+  // $('body').append($points);
 }
 
 
@@ -185,7 +197,7 @@ function newRound(){
 flickInterval = setInterval(flicker,500);
 correctGuess = guess[Math.floor(Math.random() * guess.length)];
 console.log(correctGuess);
-  // setInterval(hint,Math.floor(Math.random() * 3000));
+  hintInterval = setInterval(hint,1000);
 
 
 
@@ -215,9 +227,13 @@ function hint(){
 
 }
 
-//
-// function addCall(label){
-//   let $callBox = $('<div class="callBox"></div>');
-//   $callBox.text(label);
-//   $('body').append($callBox);
-// }
+function gameOver(){
+    $("#zones").fadeOut(500);
+    $("#end").delay(1200).fadeIn(1000);
+
+}
+function gameWon(){
+    $("#zones").fadeOut(500);
+    $("#zoneWon").delay(1200).fadeIn(1000);
+
+}

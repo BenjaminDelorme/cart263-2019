@@ -14,3 +14,6 @@ h1{margin-left:40%;margin-top: 20%; color: white;}
 #avatar{z-index: 4000;pointer-events: none;}
 .points{color: white;position: absolute;background-color: black;}
 .ghost{width:50px;pointer-events: none;}
+#end{display: none;}
+#one{top:5vw;left:5vw;}#two{top:5vw;left:35vw;}#three{top:5vw;left:65vw;}
+#zoneWon{display:none;}

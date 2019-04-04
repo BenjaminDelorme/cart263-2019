@@ -3,5 +3,6 @@
 This is the style file for this project.
 
 **********************************************/
-#create{display: none;}
-#intro{display: none;}
+#create{display: none;text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vw;}
+#intro{text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vw;}
+.skin{width: 20vw;}

@@ -17,6 +17,29 @@ $(document).ready(function(){
   //   annyang.start();
   // }
 
+
+
+$("#start").on('click',function(){
+  $("#intro").fadeOut();
+  $("#create").delay(500).fadeIn();
+  $("#avatar").hide();$("#voice").hide();$("#name").hide();
+});
+
+$("#boy").on('click',characterSelection);
+
+});
+
+function characterSelection(){
+  $("#gender").fadeOut();
+  $("#avatar").delay(500).fadeIn();
+  let bois = ["assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"]
+  let skin = $('<img class="skin" src=""></img>');
+  skin.attr('src',bois[0]);
+  $('#avatar').append(skin);
+  charAni();
+}
+
+function charAni(){
   setInterval(function(){
 let path = $("img").attr('src');
     if(path.slice(-5)==="1.png"){
@@ -27,14 +50,4 @@ let path = $("img").attr('src');
         $("img").attr('src',path2);
       }
     },500)
-
-
-//     setInterval(function(){
-// if($ghost.attr('src')==="assets/images/ghost1.png" ){
-//     $ghost.attr('src',"assets/images/ghost2.png");
-//   } else{
-//     $ghost.attr('src',"assets/images/ghost1.png");
-//   }
-// },820)
-
-});
+}

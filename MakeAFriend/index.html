@@ -44,12 +44,27 @@
     <h3>Now select an avatar for your friend</h3>
     <button id="next">Next</button>
     <button id="prev">Previous</button>
+    <button id="sel">Select</button>
   </div>
   <div id="name">
     <h3>What's your friend's name?</h3>
+
+    <form action="/action_page.php">
+        Name: <input id="charName" type="text" name="fname"><br>
+         <input id="nameSelect" type="button" value="Select">
+  </form>
+    <img class="skin" src=""></img>
+    <div id="check">
+      <p> Are you sure you want to go with</p>
+      <h4 id="chosenName"></h4>
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
   </div>
+
   <div id="voice">
-    <h3>Finally, choose a voice for </h3>
+    <h3>Finally, choose a voice for <span class="charName">Guy</span></h3>
+    <img class="skin" src=""></img>
   </div>
 </div>
 </body>

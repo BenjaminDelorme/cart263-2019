@@ -1,5 +1,7 @@
 "use strict";
-
+let charName;
+let charAvatar;
+let charVoice;
 $(document).ready(function(){
   // if (annyang) {
   //   // Let's define our first command. First the text we expect, and then the function it should call
@@ -52,8 +54,40 @@ function characterSelection(){
     skin.attr('src',bois[charID]);
     $('#avatar').append(skin);
   });
+  $("#sel").on('click',function(){
+    charAvatar = skin.attr('src');
+    console.log(charAvatar);
+    $("#avatar").fadeOut();
+    $("#name").delay(500).fadeIn();
+    $("#check").hide();
+    nameSelect();
+  })
+
 }
 
+function nameSelect(){
+  $("#nameSelect").on('click',function(){
+    let name = $("#charName").val()
+    $("#check").fadeIn();
+    $("#chosenName").text(name);
+
+    $("#no").on('click',function(){  $("#check").fadeOut(); });
+    $("#yes").on('click',function(){
+      charName = name;
+      console.log(charName);
+      $(".charName").text(charName);
+
+      $("#name").fadeOut();
+      $("#voice").delay(500).fadeIn();
+      voiceSelect();
+     });
+  })
+
+}
+
+function voiceSelect(){
+
+}
 
 function charAni(){
   setInterval(function(){

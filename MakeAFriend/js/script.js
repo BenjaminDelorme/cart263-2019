@@ -25,19 +25,35 @@ $("#start").on('click',function(){
   $("#avatar").hide();$("#voice").hide();$("#name").hide();
 });
 
-$("#boy").on('click',characterSelection);
+$("#boy").on('click',function(){
+  $("#gender").fadeOut();
+  $("#avatar").delay(500).fadeIn();
+  characterSelection();
+  });
 
 });
 
 function characterSelection(){
-  $("#gender").fadeOut();
-  $("#avatar").delay(500).fadeIn();
-  let bois = ["assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"]
+  let charID = 1;
+  let bois = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"]
   let skin = $('<img class="skin" src=""></img>');
-  skin.attr('src',bois[0]);
+  skin.attr('src',bois[charID]);
   $('#avatar').append(skin);
   charAni();
+  $("#next").on('click',function(){
+    charID++;
+    if(charID === bois.length){charID=1;}
+    skin.attr('src',bois[charID]);
+    $('#avatar').append(skin);
+  });
+  $("#prev").on('click',function(){
+    charID--;
+    if(charID === 0){charID=bois.length-1;}
+    skin.attr('src',bois[charID]);
+    $('#avatar').append(skin);
+  });
 }
+
 
 function charAni(){
   setInterval(function(){

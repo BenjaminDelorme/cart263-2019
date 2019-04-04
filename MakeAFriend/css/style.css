@@ -3,6 +3,8 @@
 This is the style file for this project.
 
 **********************************************/
-#create{display: none;text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vw;}
-#intro{text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vw;}
+#create{display: none;text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vh;}
+#intro{text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vh;}
 .skin{width: 20vw;}
+#next{position: absolute;left: 70vw;top:50vh;}
+#prev{position: absolute;left: 30vw;top:50vh;}

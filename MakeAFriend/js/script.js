@@ -2,22 +2,23 @@
 let charName;
 let charAvatar;
 let charVoice;
+let pitch;
 $(document).ready(function(){
-  // if (annyang) {
-  //   // Let's define our first command. First the text we expect, and then the function it should call
-  //   var commands = {
-  //     'Hello': function() {
-  //       $('div').fadeOut();
-  //       gameStart();
-  //     }
-  //   };
-  //
-  //   // Add our commands to annyang
-  //   annyang.addCommands(commands);
-  //
-  //   // Start listening. You can call this here, or attach this call to an event, button, etc.
-  //   annyang.start();
-  // }
+  if (annyang) {
+    // Let's define our first command. First the text we expect, and then the function it should call
+    var commands = {
+      'Hello': function() {
+        $('div').fadeOut();
+        gameStart();
+      }
+    };
+
+    // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
+  }
 
 
 
@@ -86,8 +87,105 @@ function nameSelect(){
 }
 
 function voiceSelect(){
+    let voicesM = [
+    "UK English Male",
+    "US English Male",
+    "Spanish Male",
+    "French Male",
+    "Italian Male",
+    "Russian Male",
+    "Swedish Male",
+    "Norwegian Male",
+    "Australian Male",
+    "Finnish Male",
+    "Arabic Male",
+    "Polish Male"
+    ];
+    let voicesF = [
+      "UK English Female",
+      "US English Female",
+      "Spanish Female",
+      "French Female",
+      "Deutsch Female",
+      "Italian Female",
+      "Greek Female",
+      "Hungarian Female",
+      "Turkish Female",
+      "Russian Female",
+      "Dutch Female",
+      "Swedish Female",
+      "Norwegian Female",
+      "Japanese Female",
+      "Korean Female",
+      "Chinese Female",
+      "Hindi Female",
+      "Australian Female",
+      "Finnish Female"
+      ];
+    let selectedVoice = 0;
+    let tempVoice = voicesM[selectedVoice];
+    let tempPitch = 1;
+    let defaultLine = `Hey. I'm ${charName}`;
+    $("#say").val(defaultLine);
+    let soundTest = $("#say").val();
+    responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});
+
+//vocie selction slider
+    $( function() {
+ $( "#voiceSel" ).slider({
+   value:0,
+   min: 0,
+   max: voicesM.length-1,
+   step: 1,
+   slide: function( event, ui ) {
+     $( "#amount2" ).val(ui.value);
+     selectedVoice = ui.value;
+     console.log(ui.value);
+     tempVoice = voicesM[selectedVoice];
+     console.log(tempVoice);
+     soundTest = $("#say").val();
+      responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});
+   }
+ });
+ $( "#amount2" ).val( $( "#voiceSel" ).slider( "value" ) );
+
+} );
+
+//pitch function slider
+      $( function() {
+   $( "#pitch" ).slider({
+     value:1,
+     min: 0,
+     max: 2,
+     step: 0.05,
+     slide: function( event, ui ) {
+       $( "#amount" ).val(ui.value);
+       tempPitch = ui.value;
+       console.log(tempPitch);
+         soundTest = $("#say").val();
+        responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});
+     }
+   });
+   $( "#amount" ).val( $( "#pitch" ).slider( "value" ) );
+$("#testVoice").on('click',function(){
+  soundTest = $("#say").val();
+  responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});
+});
+
+$("#chooseVoice").on('click',function(){
+  soundTest = $("#say").val();
+  charVoice =tempVoice;
+  pitch = {pitch: tempPitch};
+  $("#voice").fadeOut();
+  responsiveVoice.speak("Congratulations. You're my new friend.", charVoice, pitch);
+});
+ } );
+
+
 
 }
+
+
 
 function charAni(){
   setInterval(function(){

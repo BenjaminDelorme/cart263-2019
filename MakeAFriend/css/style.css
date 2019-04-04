@@ -10,3 +10,7 @@ This is the style file for this project.
 #prev{position: absolute;left: 30vw;top:50vh;}
 #sel{position: absolute;left: 50vw;top:60vh;}
 #check{background-color: white;position: absolute;width: 100%;height: 100%;top: 0px;}
+#pitch{width: 40%;left:30vw;margin-top: 10vh;}
+#voiceSel{width: 40%;left:30vw;margin-top: 10vh;}
+#testVoice{position: absolute;top:90%;left:20%}
+#chooseVoice{position: absolute;top:90%;left:50%}

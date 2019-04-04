@@ -19,8 +19,8 @@
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzicato/0.6.4/Pizzicato.js"></script>
-  <script src='https://code.responsivevoice.org/responsivevoice.js?key=YOUR_UNIQUE_KEY'></script>
+
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
 
   <!-- My script(s) -->
@@ -30,7 +30,7 @@
 <body>
 <div id="intro">
 <h2> Hi and welcome to</h2><h1> Make A Friend</h1>
-<p id="info"> Here, you will be able to make a friend with whom you can discusse, make jokes, play games and overall share moments for you to remember.Our goal here at MakeAFriend is to not only recreate the experience of socializing with people and making friends, but also to enhence it by allowing a flawless relationship custom to your preferences.</p>
+<p id="info"> Here, you will be able to make a friend with whom you can discusse, make jokes, play games and overall share moments for you to remember.Our goal here at MakeAFriend is to not only recreate the experience of socializing with people and making friends, but also to enhence it by allowing a flawless relationship custom to your preferences.</br>To start to experience, please allow us access to your microphone and click the button.</p>
   <button id="start"> Click here to make a friend</button>
 </div>
 
@@ -65,6 +65,26 @@
   <div id="voice">
     <h3>Finally, choose a voice for <span class="charName">Guy</span></h3>
     <img class="skin" src=""></img>
+
+    <form action="/action_page.php">
+        Say: <input id="say" type="text" value="Hi."><br>
+    </form>
+
+    <div id="voiceSel">
+        <p>
+          <label for="amount2">Voice:</label>
+          <input type="text" id="amount2" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+  </div>
+
+    <div id="pitch">
+        <p>
+          <label for="amount">Pitch:</label>
+          <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+  </div>
+<button id="testVoice">Play voice</button>
+<button id="chooseVoice">Select Voice</button>
   </div>
 </div>
 </body>

@@ -3,7 +3,12 @@ let charName;
 let charAvatar;
 let charVoice;
 let pitch;
+let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
 $(document).ready(function(){
+
+  $.getJSON('assets/data/speech.json',fetchSpeech);
+
+
   if (annyang) {
     // Let's define our first command. First the text we expect, and then the function it should call
     var commands = {
@@ -19,24 +24,41 @@ $(document).ready(function(){
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
   }
-
-
-
-$("#start").on('click',function(){
-  $("#intro").fadeOut();
-  $("#create").delay(500).fadeIn();
-  $("#avatar").hide();$("#voice").hide();$("#name").hide();
+  $("#intro").hide();
+  setTimeout(intro,500);
 });
 
-$("#boy").on('click',function(){
-  $("#gender").fadeOut();
-  $("#avatar").delay(500).fadeIn();
-  characterSelection();
+function fetchSpeech(data){
+  lady1 = data.lady[0];lady4 = data.lady[3];
+  lady2 = data.lady[1];lady5 = data.lady[4];
+  lady3 = data.lady[2];lady6 = data.lady[5];
+}
+
+function intro(){
+
+  // console.log(lady1);
+  $("#intro").delay(500).fadeIn();
+  responsiveVoice.speak(lady1, "US English Female");
+
+  $("#start").on('click',function(){
+    responsiveVoice.cancel();
+    $("#intro").fadeOut();
+    $("#create").delay(500).fadeIn();
+    $("#avatar").hide();$("#voice").hide();$("#name").hide();
+    responsiveVoice.speak(lady2, "US English Female");
   });
 
-});
+  $("#boy").on('click',function(){
+    $("#gender").fadeOut();
+    $("#avatar").delay(500).fadeIn();
+    characterSelection();
+    });
+
+}
 
 function characterSelection(){
+  responsiveVoice.cancel();
+  responsiveVoice.speak(lady3, "US English Female");
   let charID = 1;
   let bois = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"]
   let skin = $('<img class="skin" src=""></img>');
@@ -67,12 +89,18 @@ function characterSelection(){
 }
 
 function nameSelect(){
+  responsiveVoice.cancel();
+  responsiveVoice.speak(lady4, "US English Female");
   $("#nameSelect").on('click',function(){
     let name = $("#charName").val()
     $("#check").fadeIn();
     $("#chosenName").text(name);
-
-    $("#no").on('click',function(){  $("#check").fadeOut(); });
+    responsiveVoice.speak(lady5+name, "US English Female");
+    $("#no").on('click',function(){
+       $("#check").fadeOut();
+       responsiveVoice.cancel();
+        responsiveVoice.speak(lady4, "US English Female");
+     });
     $("#yes").on('click',function(){
       charName = name;
       console.log(charName);
@@ -128,6 +156,7 @@ function voiceSelect(){
     let defaultLine = `Hey. I'm ${charName}`;
     $("#say").val(defaultLine);
     let soundTest = $("#say").val();
+     responsiveVoice.speak(lady6, "US English Female");
     responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});
 
 //vocie selction slider

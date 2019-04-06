@@ -3,6 +3,8 @@ let charName;
 let charAvatar;
 let charVoice;
 let pitch;
+let boy = false;
+let girl = false;
 let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
 $(document).ready(function(){
 
@@ -38,7 +40,7 @@ function intro(){
 
   // console.log(lady1);
   $("#intro").delay(500).fadeIn();
-  responsiveVoice.speak(lady1, "US English Female");
+  // responsiveVoice.speak(lady1, "US English Female");
 
   $("#start").on('click',function(){
     responsiveVoice.cancel();
@@ -51,30 +53,46 @@ function intro(){
   $("#boy").on('click',function(){
     $("#gender").fadeOut();
     $("#avatar").delay(500).fadeIn();
+    boy = true;
+    console.log(boy);
     characterSelection();
     });
+    $("#girl").on('click',function(){
+      $("#gender").fadeOut();
+      $("#avatar").delay(500).fadeIn();
+      girl = true;
+      console.log(girl);
+      characterSelection();
+      });
 
 }
 
 function characterSelection(){
   responsiveVoice.cancel();
   responsiveVoice.speak(lady3, "US English Female");
+  let skins=[];
   let charID = 1;
-  let bois = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"]
+  if(boy===true){
+    skins = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"];
+  } else if(girl === true){
+    skins =["","assets/images/girl1-1.png","assets/images/girl2-1.png"];
+  }
   let skin = $('<img class="skin" src=""></img>');
-  skin.attr('src',bois[charID]);
+  skin.attr('src',skins[charID]);
+
   $('#avatar').append(skin);
   charAni();
+
   $("#next").on('click',function(){
     charID++;
-    if(charID === bois.length){charID=1;}
-    skin.attr('src',bois[charID]);
+    if(charID === skins.length){charID=1;}
+    skin.attr('src',skins[charID]);
     $('#avatar').append(skin);
   });
   $("#prev").on('click',function(){
     charID--;
-    if(charID === 0){charID=bois.length-1;}
-    skin.attr('src',bois[charID]);
+    if(charID === 0){charID=skins.length-1;}
+    skin.attr('src',skins[charID]);
     $('#avatar').append(skin);
   });
   $("#sel").on('click',function(){
@@ -115,7 +133,9 @@ function nameSelect(){
 }
 
 function voiceSelect(){
-    let voicesM = [
+  let voices = [];
+  if(boy===true){
+    voices = [
     "UK English Male",
     "US English Male",
     "Spanish Male",
@@ -129,7 +149,8 @@ function voiceSelect(){
     "Arabic Male",
     "Polish Male"
     ];
-    let voicesF = [
+  } else if (girl===true){
+    voices = [
       "UK English Female",
       "US English Female",
       "Spanish Female",
@@ -150,8 +171,9 @@ function voiceSelect(){
       "Australian Female",
       "Finnish Female"
       ];
+  }
     let selectedVoice = 0;
-    let tempVoice = voicesM[selectedVoice];
+    let tempVoice = voices[selectedVoice];
     let tempPitch = 1;
     let defaultLine = `Hey. I'm ${charName}`;
     $("#say").val(defaultLine);
@@ -164,13 +186,13 @@ function voiceSelect(){
  $( "#voiceSel" ).slider({
    value:0,
    min: 0,
-   max: voicesM.length-1,
+   max: voices.length-1,
    step: 1,
    slide: function( event, ui ) {
      $( "#amount2" ).val(ui.value);
      selectedVoice = ui.value;
      console.log(ui.value);
-     tempVoice = voicesM[selectedVoice];
+     tempVoice = voices[selectedVoice];
      console.log(tempVoice);
      soundTest = $("#say").val();
       responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});

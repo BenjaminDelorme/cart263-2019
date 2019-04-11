@@ -8,6 +8,8 @@ let rpsScoreIts = 0;
 let boy = false;
 let girl = false;
 let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
+let hangmanWord = ["castle","chair","ugly","insane","weird"];
+let talkin = false;
 $(document).ready(function(){
 
   $.getJSON('assets/data/speech.json',fetchSpeech);
@@ -270,10 +272,12 @@ function main(){
     $("#play").hide();
     $("#more").hide();
     $("#options").fadeIn();
+    talkin=false;
+    // clearInterval(smallTalk);
   });
 
   $("#playRPS").on('click',gameRPS);
-  $("#playHANG").on('click',gameHangman);
+  $("#playHANG").on('click',setupHang);
 
   $("#aboutB").on('click',aboutFriend);
   // $("#shareB").on('click',shareFeel);
@@ -281,21 +285,31 @@ function main(){
 }
 
 let test = ["yo","hi","wassup","bro"];
-const beat = (time, array, times) => {
-  if (times > 0) {
-    setTimeout(()=> {
-      beat(Math.random() * 1000, array, times -1);
-      let call = array[Math.floor(Math.random() * array.length)];
-      console.log(call)
-    }, time)
-  }
-}
+const beat = (time, array) => {
 
+    setTimeout(()=> {
+      let rng = Math.floor(Math.random() * (7000 - 4000) ) + 4000;
+      beat(Math.random() * rng, array);
+      if(talkin===true){
+        console.log(rng);
+        let call = array[Math.floor(Math.random() * array.length)];
+        console.log(call)
+      }
+
+    }, time)
+
+}
+let smallTalk;
 function aboutFriend(){
 $("#optionTalk").fadeOut();
-beat(5,test,3);
+talkin=true;
+  beat(4000,test);
 
-
+// smallTalk = setInterval(justTalkin,3000);
+}
+function justTalkin(){
+  let call = test[Math.floor(Math.random() * test.length)];
+  console.log(call);
 }
 
 function gameRPS(){
@@ -336,23 +350,65 @@ function gameRPS(){
   });
 }
 
-function gameHangman(){
+let hangWord;
+let word;
+let currentGuess;
+
+function setupHang(){
   $("#games").hide();
   $("#hang").fadeIn();
-  let word = "Castle";
-  let line;
-  // word.split('');
-  let $word = $('<div class="hangWord"></div>');
-  console.log(word.length);
-  for (let i = 0; i < word.length; i++) {
-    line = $('<span></span>');
-    line.text("_ ");
-    $word.append(line);
-  }
+  hangWord = $("<div></div>");
+  $("#gameHangMan").append(hangWord);
+  word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+  currentGuess = [];
+    console.log(word);
+    for (let i = 0; i < word.length; i++) {
+      currentGuess.push("_ ");
+    };
+    let guessString = currentGuess.join('');
+
+     hangWord.text(guessString);
+
+       gameHangman();
 
 
 }
 
+function gameHangman(){
+     $(document).on('keydown',(event) => {
+
+       let correct = 0;
+       for (let i = 0; i < word.length; i++) {
+         if (event.key === word.charAt(i)) {
+           currentGuess[i] = event.key + " ";
+           correct++;
+           console.log("yup");
+         }
+       }
+
+       if  (correct === 0) {
+         console.log("nope");
+       }
+       let guessString = currentGuess.join('');
+      hangWord.text(guessString);
+
+       if (guessString.indexOf("_") === -1) {
+         console.log("you Win");
+       }
+     });
+
+     $("#hangAgain").on('click', function(){
+       $("#gameHangMan").empty();
+       hangWord= " ";
+       word = " ";
+       currentGuess = [];
+       setupHang();
+     });
+}
+
+function again(){
+
+}
 function charAni(){
   setInterval(function(){
 let path = $("img").attr('src');

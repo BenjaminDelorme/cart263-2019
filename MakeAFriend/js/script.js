@@ -9,7 +9,7 @@ let boy = false;
 let girl = false;
 let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
 let hangmanWord = ["castle","chair","ugly","insane","weird"];
-let talkin = false;
+let talkin = false; let discuss = false;
 $(document).ready(function(){
 
   $.getJSON('assets/data/speech.json',fetchSpeech);
@@ -273,6 +273,7 @@ function main(){
     $("#more").hide();
     $("#options").fadeIn();
     talkin=false;
+    discuss=false;
     // clearInterval(smallTalk);
   });
 
@@ -280,17 +281,27 @@ function main(){
   $("#playHANG").on('click',setupHang);
 
   $("#aboutB").on('click',aboutFriend);
-  // $("#shareB").on('click',shareFeel);
+
+  $("#shareB").on('click',shareFeel);
   // $("#jokeB").on('click',tellJokes);
 }
 
 let test = ["yo","hi","wassup","bro"];
+let test2 = ["Hmm","I know","wow really","sorry"];
 const beat = (time, array) => {
 
     setTimeout(()=> {
-      let rng = Math.floor(Math.random() * (7000 - 4000) ) + 4000;
-      beat(Math.random() * rng, array);
+      let rng;
       if(talkin===true){
+      rng = Math.floor(Math.random() * (7000 - 4000) ) + 4000;
+      beat(Math.random() * rng, array);
+        console.log(rng);
+        let call = array[Math.floor(Math.random() * array.length)];
+        console.log(call)
+      }
+      if(discuss===true){
+      rng = Math.floor(Math.random() * (10000 - 8000) ) + 8000;
+      beat(Math.random() * rng, array);
         console.log(rng);
         let call = array[Math.floor(Math.random() * array.length)];
         console.log(call)
@@ -299,17 +310,15 @@ const beat = (time, array) => {
     }, time)
 
 }
-let smallTalk;
 function aboutFriend(){
 $("#optionTalk").fadeOut();
 talkin=true;
   beat(4000,test);
-
-// smallTalk = setInterval(justTalkin,3000);
 }
-function justTalkin(){
-  let call = test[Math.floor(Math.random() * test.length)];
-  console.log(call);
+function shareFeel(){
+$("#optionTalk").fadeOut();
+discuss=true;
+  beat(4000,test2);
 }
 
 function gameRPS(){

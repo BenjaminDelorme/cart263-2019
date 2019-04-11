@@ -10,10 +10,11 @@ let girl = false;
 let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
 let hangmanWord = ["castle","chair","ugly","insane","weird"];
 let talkin = false; let discuss = false;
+
 $(document).ready(function(){
 
   $.getJSON('assets/data/speech.json',fetchSpeech);
-
+  $.getJSON('assets/data/questions.json',fetchQuestions);
 
   if (annyang) {
     // Let's define our first command. First the text we expect, and then the function it should call
@@ -255,6 +256,7 @@ function main(){
     $("#games").show();
     $("#rps").hide();
     $("#hang").hide();
+    $("#trivia").hide();
   });
   $("#talkB").on('click',function(){
     $("#options").fadeOut();
@@ -279,6 +281,7 @@ function main(){
 
   $("#playRPS").on('click',gameRPS);
   $("#playHANG").on('click',setupHang);
+  $("#playTRIV").on('click',playTrivia);
 
   $("#aboutB").on('click',aboutFriend);
 
@@ -359,6 +362,59 @@ function gameRPS(){
   });
 }
 
+
+let questions;
+function fetchQuestions(data){
+  questions = data.questions;
+}
+
+function playTrivia(){
+  $("#games").hide();
+  $("#trivia").fadeIn();
+  $("#nextQuestion").on('click',nextQuestion);
+}
+
+function nextQuestion(){
+   $("#q-display").empty();
+  let currentQ = getRandomElement(questions);
+  console.log(currentQ.question);
+  // console.log(currentQ.answers);
+  // console.log(currentQ.correctAnswer);
+  let q_box = $("<div></div>");
+  q_box.text(currentQ.question);
+  $("#q-display").append(q_box);
+  console.log(currentQ.answers.length);
+  for (let i = 0; i < currentQ.answers.length; i++){
+    let a_box = $("<div class = 'triviaGuess'></div>");
+    // q_box.text(currentQ.question);
+    a_box.text(currentQ.answers[i]);
+    a_box.button();
+    $("#q-display").append(a_box);
+
+  }
+
+  $(".triviaGuess").on('click',function(){
+    if($(this).text().charAt(0)===currentQ.correctAnswer){
+        console.log('correct')
+        let goodA = $("<div></div>");
+        goodA.text("Good Answer");
+        $("#q-display").append(goodA);
+        setTimeout(nextQuestion,1000);
+      }
+      else{
+        $(this).effect('shake');}
+
+  });
+
+}
+
+function getRandomElement(array){
+  let element = array[Math.floor(Math.random() * array.length)];
+    return element;
+
+}
+
+
 let hangWord;
 let word;
 let currentGuess;
@@ -415,9 +471,7 @@ function gameHangman(){
      });
 }
 
-function again(){
 
-}
 function charAni(){
   setInterval(function(){
 let path = $("img").attr('src');

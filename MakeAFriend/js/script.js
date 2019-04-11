@@ -252,11 +252,12 @@ function main(){
     $("#play").fadeIn();
     $("#games").show();
     $("#rps").hide();
-    $("#tic").hide();
+    $("#hang").hide();
   });
   $("#talkB").on('click',function(){
     $("#options").fadeOut();
     $("#talk").fadeIn();
+    $("#optionTalk").fadeIn();
   });
 
   $("#moreB").on('click',function(){
@@ -272,10 +273,30 @@ function main(){
   });
 
   $("#playRPS").on('click',gameRPS);
-  $("#playTIC").on('click',gameTic);
+  $("#playHANG").on('click',gameHangman);
 
+  $("#aboutB").on('click',aboutFriend);
+  // $("#shareB").on('click',shareFeel);
+  // $("#jokeB").on('click',tellJokes);
 }
 
+let test = ["yo","hi","wassup","bro"];
+const beat = (time, array, times) => {
+  if (times > 0) {
+    setTimeout(()=> {
+      beat(Math.random() * 1000, array, times -1);
+      let call = array[Math.floor(Math.random() * array.length)];
+      console.log(call)
+    }, time)
+  }
+}
+
+function aboutFriend(){
+$("#optionTalk").fadeOut();
+beat(5,test,3);
+
+
+}
 
 function gameRPS(){
   $("#games").hide();
@@ -315,9 +336,21 @@ function gameRPS(){
   });
 }
 
-function gameTic(){
+function gameHangman(){
   $("#games").hide();
-  $("#tic").fadeIn();
+  $("#hang").fadeIn();
+  let word = "Castle";
+  let line;
+  // word.split('');
+  let $word = $('<div class="hangWord"></div>');
+  console.log(word.length);
+  for (let i = 0; i < word.length; i++) {
+    line = $('<span></span>');
+    line.text("_ ");
+    $word.append(line);
+  }
+
+
 }
 
 function charAni(){

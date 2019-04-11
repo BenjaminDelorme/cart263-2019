@@ -3,6 +3,8 @@ let charName;
 let charAvatar;
 let charVoice;
 let pitch;
+let rpsScoreYou = 0;
+let rpsScoreIts = 0;
 let boy = false;
 let girl = false;
 let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
@@ -26,8 +28,10 @@ $(document).ready(function(){
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
   }
-  $("#intro").hide();
-  setTimeout(intro,500);
+
+  // $("#intro").hide();
+  // setTimeout(intro,500);
+  main();
 });
 
 function fetchSpeech(data){
@@ -237,6 +241,84 @@ $("#chooseVoice").on('click',function(){
 }
 
 
+function main(){
+  $("#main").fadeIn();
+  $("#play").hide();
+  $("#talk").hide();
+  $("#more").hide();
+
+  $("#playB").on('click',function(){
+    $("#options").fadeOut();
+    $("#play").fadeIn();
+    $("#games").show();
+    $("#rps").hide();
+    $("#tic").hide();
+  });
+  $("#talkB").on('click',function(){
+    $("#options").fadeOut();
+    $("#talk").fadeIn();
+  });
+
+  $("#moreB").on('click',function(){
+    $("#options").fadeOut();
+    $("#more").fadeIn();
+  });
+
+  $("#menu").on('click',function(){
+    $("#talk").hide();
+    $("#play").hide();
+    $("#more").hide();
+    $("#options").fadeIn();
+  });
+
+  $("#playRPS").on('click',gameRPS);
+  $("#playTIC").on('click',gameTic);
+
+}
+
+
+function gameRPS(){
+  $("#games").hide();
+  $("#rps").fadeIn();
+
+  let rpsActions = ["Rock", "Paper", "Scissors"];
+  $(".rpsMove").on('click',function(){
+    let rpsGuess = rpsActions[Math.floor(Math.random() * rpsActions.length)];
+    $("#rpsGuess").text(rpsGuess);
+
+    //if you choose rock
+    if($(this).text() === "Rock"){
+      if(rpsGuess === "Paper"){
+        $("#rpsResult").text("You Lost");rpsScoreIts++
+      }else if(rpsGuess === "Scissors"){
+        $("#rpsResult").text("You Won");rpsScoreYou++;
+      }else{$("#rpsResult").text("Draw");}
+    }
+    //if you choose paper
+    if($(this).text() === "Paper"){
+      if(rpsGuess === "Paper"){
+        $("#rpsResult").text("Draw");
+      }else if(rpsGuess === "Scissors"){
+        $("#rpsResult").text("You Lost");rpsScoreIts++
+      }else{$("#rpsResult").text("You Won");rpsScoreYou++;}
+    }
+    //if you choose scissors
+    if($(this).text() === "Scissors"){
+      if(rpsGuess === "Paper"){
+        $("#rpsResult").text("You Won");rpsScoreYou++;
+      }else if(rpsGuess === "Scissors"){
+        $("#rpsResult").text("Draw");
+      }else{$("#rpsResult").text("You Lost");rpsScoreIts++}
+    }
+    $("#rpsYourScore").text(rpsScoreYou);
+    $("#rpsItsScore").text(rpsScoreIts);
+  });
+}
+
+function gameTic(){
+  $("#games").hide();
+  $("#tic").fadeIn();
+}
 
 function charAni(){
   setInterval(function(){

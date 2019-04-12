@@ -5,15 +5,15 @@ let charVoice;
 let pitch;
 let rpsScoreYou = 0;
 let rpsScoreIts = 0;
+let hungLives = 10;
 let boy = false;
 let girl = false;
-let lady1;let lady2;let lady3;let lady4;let lady5;let lady6;
-let hangmanWord = ["castle","chair","ugly","insane","weird"];
+let hangmanWord;
 let talkin = false; let discuss = false;
-
+let lady;
 $(document).ready(function(){
 
-  $.getJSON('assets/data/speech.json',fetchSpeech);
+  $.getJSON('assets/data/data.json',fetchSpeech);
   $.getJSON('assets/data/questions.json',fetchQuestions);
 
   if (annyang) {
@@ -32,29 +32,31 @@ $(document).ready(function(){
     annyang.start();
   }
 
-  // $("#intro").hide();
-  // setTimeout(intro,500);
+  $("#intro").hide();
+  setTimeout(intro,500);
   main();
 });
 
 function fetchSpeech(data){
-  lady1 = data.lady[0];lady4 = data.lady[3];
-  lady2 = data.lady[1];lady5 = data.lady[4];
-  lady3 = data.lady[2];lady6 = data.lady[5];
+  lady = data.lady;
+  hangmanWord = data.words;
+  // lady1 = data.lady[0];lady4 = data.lady[3];
+  // lady2 = data.lady[1];lady5 = data.lady[4];
+  // lady3 = data.lady[2];lady6 = data.lady[5];
 }
 
 function intro(){
 
   // console.log(lady1);
   $("#intro").delay(500).fadeIn();
-  // responsiveVoice.speak(lady1, "US English Female");
+  // responsiveVoice.speak(lady[0], "US English Female");
 
   $("#start").on('click',function(){
     responsiveVoice.cancel();
     $("#intro").fadeOut();
     $("#create").delay(500).fadeIn();
     $("#avatar").hide();$("#voice").hide();$("#name").hide();
-    responsiveVoice.speak(lady2, "US English Female");
+    responsiveVoice.speak(lady[1], "US English Female");
   });
 
   $("#boy").on('click',function(){
@@ -76,13 +78,13 @@ function intro(){
 
 function characterSelection(){
   responsiveVoice.cancel();
-  responsiveVoice.speak(lady3, "US English Female");
+  responsiveVoice.speak(lady[2], "US English Female");
   let skins=[];
   let charID = 1;
   if(boy===true){
     skins = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"];
   } else if(girl === true){
-    skins =["","assets/images/girl1-1.png","assets/images/girl2-1.png"];
+    skins =["","assets/images/girl1-1.png","assets/images/girl2-1.png","assets/images/girl3-1.png","assets/images/girl4-1.png","assets/images/girl5-1.png"];
   }
   let skin = $('<img class="skin" src=""></img>');
   skin.attr('src',skins[charID]);
@@ -115,16 +117,16 @@ function characterSelection(){
 
 function nameSelect(){
   responsiveVoice.cancel();
-  responsiveVoice.speak(lady4, "US English Female");
+  responsiveVoice.speak(lady[3], "US English Female");
   $("#nameSelect").on('click',function(){
     let name = $("#charName").val()
     $("#check").fadeIn();
     $("#chosenName").text(name);
-    responsiveVoice.speak(lady5+name, "US English Female");
+    responsiveVoice.speak(lady[4]+name, "US English Female");
     $("#no").on('click',function(){
        $("#check").fadeOut();
        responsiveVoice.cancel();
-        responsiveVoice.speak(lady4, "US English Female");
+        responsiveVoice.speak(lady[3], "US English Female");
      });
     $("#yes").on('click',function(){
       charName = name;
@@ -185,7 +187,7 @@ function voiceSelect(){
     let defaultLine = `Hey. I'm ${charName}`;
     $("#say").val(defaultLine);
     let soundTest = $("#say").val();
-     responsiveVoice.speak(lady6, "US English Female");
+     responsiveVoice.speak(lady[5], "US English Female");
     responsiveVoice.speak(soundTest, tempVoice, {pitch: tempPitch});
 
 //vocie selction slider
@@ -281,6 +283,7 @@ function main(){
 
   $("#playRPS").on('click',gameRPS);
   $("#playHANG").on('click',setupHang);
+  // $("#hangAgain").on('click',setupHang);
   $("#playTRIV").on('click',playTrivia);
 
   $("#aboutB").on('click',aboutFriend);
@@ -371,10 +374,11 @@ function fetchQuestions(data){
 function playTrivia(){
   $("#games").hide();
   $("#trivia").fadeIn();
-  $("#nextQuestion").on('click',nextQuestion);
+  $("#startQuiz").on('click',nextQuestion);
 }
 
 function nextQuestion(){
+  $("#startQuiz").fadeOut();
    $("#q-display").empty();
   let currentQ = getRandomElement(questions);
   console.log(currentQ.question);
@@ -415,33 +419,30 @@ function getRandomElement(array){
 }
 
 
-let hangWord;
+
 let word;
 let currentGuess;
-
+let guessString;
 function setupHang(){
   $("#games").hide();
   $("#hang").fadeIn();
-  hangWord = $("<div></div>");
+  $("#gameHangMan").empty();
+  hungLives=10;
+  $("#lives").text("Lives left: " +hungLives);
+  let hangWord = $("<div></div>");
   $("#gameHangMan").append(hangWord);
+
   word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
-  currentGuess = [];
+  let currentGuess = [];
     console.log(word);
     for (let i = 0; i < word.length; i++) {
       currentGuess.push("_ ");
     };
-    let guessString = currentGuess.join('');
-
+     guessString = currentGuess.join('');
      hangWord.text(guessString);
 
-       gameHangman();
 
-
-}
-
-function gameHangman(){
      $(document).on('keydown',(event) => {
-
        let correct = 0;
        for (let i = 0; i < word.length; i++) {
          if (event.key === word.charAt(i)) {
@@ -453,23 +454,86 @@ function gameHangman(){
 
        if  (correct === 0) {
          console.log("nope");
+         hungLives--;
+         $("#lives").text("Lives left: " +hungLives);
        }
-       let guessString = currentGuess.join('');
+       guessString = currentGuess.join('');
       hangWord.text(guessString);
 
        if (guessString.indexOf("_") === -1) {
          console.log("you Win");
+         $("#gameHangMan").empty();
+         word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+         hungLives=10;
+         $("#lives").text("Lives left: " +hungLives);
+         $("#gameHangMan").append(hangWord);
+         currentGuess = [];
+         console.log(word);
+         for (let i = 0; i < word.length; i++) {
+           currentGuess.push("_ ");
+         };
+          guessString = currentGuess.join('');
+          hangWord.text(guessString);
+       }
+
+       if(hungLives===0){
+         $("#gameHangMan").empty();
+         word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+         hungLives=10;
+         $("#lives").text("Lives left: " +hungLives);
+         $("#gameHangMan").append(hangWord);
+         currentGuess = [];
+         console.log(word);
+         for (let i = 0; i < word.length; i++) {
+           currentGuess.push("_ ");
+         };
+          guessString = currentGuess.join('');
+          hangWord.text(guessString);
        }
      });
 
-     $("#hangAgain").on('click', function(){
-       $("#gameHangMan").empty();
-       hangWord= " ";
-       word = " ";
-       currentGuess = [];
-       setupHang();
-     });
+
+
 }
+
+// function gameHangman(){
+//   game=true;
+//   if(game===true){
+//      $(document).on('keydown',(event) => {
+//
+//        let correct = 0;
+//        for (let i = 0; i < word.length; i++) {
+//          if (event.key === word.charAt(i)) {
+//            currentGuess[i] = event.key + " ";
+//            correct++;
+//            console.log("yup");
+//          }
+//        }
+//
+//        if  (correct === 0) {
+//          console.log("nope");
+//          hungLives--;
+//          $("#lives").text("Lives left: " +hungLives);
+//        }
+//        let guessString = currentGuess.join('');
+//       hangWord.text(guessString);
+//
+//        if (guessString.indexOf("_") === -1) {
+//          console.log("you Win");
+//        }
+//        if(hungLives===0){
+//          setTimeout(setupHang,100);
+//        }
+//      });
+//    }
+//      // $("#hangAgain").on('click', function(){
+//      //   $("#gameHangMan").empty();
+//      //   hangWord= " ";
+//      //   word = " ";
+//      //   currentGuess = [];
+//      //   setTimeout(setupHang,100);
+//      // });
+// }
 
 
 function charAni(){

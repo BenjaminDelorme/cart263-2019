@@ -10,7 +10,7 @@ let boy = false;
 let girl = false;
 let hangmanWord;
 let talkin = false; let discuss = false;
-let lady;
+let lady;let jokes; let jokeAns;
 $(document).ready(function(){
 
   $.getJSON('assets/data/data.json',fetchSpeech);
@@ -40,9 +40,8 @@ $(document).ready(function(){
 function fetchSpeech(data){
   lady = data.lady;
   hangmanWord = data.words;
-  // lady1 = data.lady[0];lady4 = data.lady[3];
-  // lady2 = data.lady[1];lady5 = data.lady[4];
-  // lady3 = data.lady[2];lady6 = data.lady[5];
+  jokes = data.jokes;
+  jokeAns = data.jokeAns;
 }
 
 function intro(){
@@ -289,7 +288,7 @@ function main(){
   $("#aboutB").on('click',aboutFriend);
 
   $("#shareB").on('click',shareFeel);
-  // $("#jokeB").on('click',tellJokes);
+  $("#jokeB").on('click',tellJokes);
 }
 
 let test = ["yo","hi","wassup","bro"];
@@ -325,6 +324,28 @@ function shareFeel(){
 $("#optionTalk").fadeOut();
 discuss=true;
   beat(4000,test2);
+}
+
+
+function tellJokes(){
+  $("#jokePage").empty();
+  let numJk = Math.floor(Math.random() * jokes.length);
+let currentJoke = jokes[numJk];
+let currentAns = jokeAns[numJk];
+
+let $joke = $("<div></div>");
+let $answer = $("<div></div>");
+$("#jokePage").append($joke).append($answer);
+
+
+$joke.text(currentJoke);
+$answer.hide().text(currentAns).delay(2000).fadeIn();
+
+
+
+console.log(numJk);
+console.log(currentJoke);
+
 }
 
 function gameRPS(){
@@ -373,6 +394,8 @@ function fetchQuestions(data){
 
 function playTrivia(){
   $("#games").hide();
+  $("#startQuiz").show();
+   $("#q-display").empty();
   $("#trivia").fadeIn();
   $("#startQuiz").on('click',nextQuestion);
 }
@@ -433,7 +456,7 @@ function setupHang(){
   $("#gameHangMan").append(hangWord);
 
   word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
-  let currentGuess = [];
+  currentGuess = [];
     console.log(word);
     for (let i = 0; i < word.length; i++) {
       currentGuess.push("_ ");
@@ -462,37 +485,36 @@ function setupHang(){
 
        if (guessString.indexOf("_") === -1) {
          console.log("you Win");
-         $("#gameHangMan").empty();
-         word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
-         hungLives=10;
-         $("#lives").text("Lives left: " +hungLives);
-         $("#gameHangMan").append(hangWord);
-         currentGuess = [];
-         console.log(word);
-         for (let i = 0; i < word.length; i++) {
-           currentGuess.push("_ ");
-         };
-          guessString = currentGuess.join('');
-          hangWord.text(guessString);
+         $("#lives").hide();
+         let result = $("<div></div>");
+         result.text("You won, the word was "+word);
+         $("#gameHangMan").append(result);
        }
 
        if(hungLives===0){
-         $("#gameHangMan").empty();
-         word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
-         hungLives=10;
-         $("#lives").text("Lives left: " +hungLives);
-         $("#gameHangMan").append(hangWord);
-         currentGuess = [];
-         console.log(word);
-         for (let i = 0; i < word.length; i++) {
-           currentGuess.push("_ ");
-         };
-          guessString = currentGuess.join('');
-          hangWord.text(guessString);
+         $("#lives").hide();
+         let result = $("<div></div>");
+         result.text("You lost, the word was "+word);
+         $("#gameHangMan").append(result);
        }
+
      });
 
-
+     $("#hangAgain").on('click',function(){
+       $("#lives").show();
+       $("#gameHangMan").empty();
+       word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+       hungLives=10;
+       $("#lives").text("Lives left: " +hungLives);
+       $("#gameHangMan").append(hangWord);
+       currentGuess = [];
+       console.log(word);
+       for (let i = 0; i < word.length; i++) {
+         currentGuess.push("_ ");
+       };
+        guessString = currentGuess.join('');
+        hangWord.text(guessString);
+     });
 
 }
 

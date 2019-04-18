@@ -475,14 +475,42 @@ function getRandomElement(array){
 let word;
 let currentGuess;
 let guessString;
+let hangWord;
+let $againHang;
+let result;
+let letter;
 function setupHang(){
+
+  commHang = {
+    'Menu': backMenu,
+   'Is there a *letter':checkLetter,
+   'Is there an *letter':checkLetter,
+   'Try again':tryAgainHung,
+   'Play':gameHangman
+  };
+
+  annyang.removeCommands();
+  annyang.addCommands(commHang);
+
+
   $("#games").hide();
   $("#hang").fadeIn();
+  $("#hangPlay").on('click',gameHangman);
+}
+function gameHangman(letter){
+  annyang.removeCommands('Play');
+  $("#hangPlay").hide();
+  $againHang = $("<div></div>");
+  $againHang.text("Try Again");
+  $againHang.button();
   $("#gameHangMan").empty();
   hungLives=10;
   $("#lives").text("Lives left: " +hungLives);
-  let hangWord = $("<div></div>");
+  hangWord = $("<div></div>");
+  result = $("<div></div>");
+  $("#gameHangMan").append(result);
   $("#gameHangMan").append(hangWord);
+  $("#gameHangMan").append($againHang);
 
   word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
   currentGuess = [];
@@ -494,97 +522,63 @@ function setupHang(){
      hangWord.text(guessString);
 
 
-     $(document).on('keydown',(event) => {
-       let correct = 0;
-       for (let i = 0; i < word.length; i++) {
-         if (event.key === word.charAt(i)) {
-           currentGuess[i] = event.key + " ";
-           correct++;
-           console.log("yup");
-         }
-       }
-
-       if  (correct === 0) {
-         console.log("nope");
-         hungLives--;
-         $("#lives").text("Lives left: " +hungLives);
-       }
-       guessString = currentGuess.join('');
-      hangWord.text(guessString);
-
-       if (guessString.indexOf("_") === -1) {
-         console.log("you Win");
-         $("#lives").hide();
-         let result = $("<div></div>");
-         result.text("You won, the word was "+word);
-         $("#gameHangMan").append(result);
-       }
-
-       if(hungLives===0){
-         $("#lives").hide();
-         let result = $("<div></div>");
-         result.text("You lost, the word was "+word);
-         $("#gameHangMan").append(result);
-       }
-
-     });
-
-     $("#hangAgain").on('click',function(){
-       $("#lives").show();
-       $("#gameHangMan").empty();
-       word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
-       hungLives=10;
-       $("#lives").text("Lives left: " +hungLives);
-       $("#gameHangMan").append(hangWord);
-       currentGuess = [];
-       console.log(word);
-       for (let i = 0; i < word.length; i++) {
-         currentGuess.push("_ ");
-       };
-        guessString = currentGuess.join('');
-        hangWord.text(guessString);
-     });
+     // $(document).on('keydown',checkLetter(event));
+     $againHang.on('click', tryAgainHung);
 
 }
 
-// function gameHangman(){
-//   game=true;
-//   if(game===true){
-//      $(document).on('keydown',(event) => {
-//
-//        let correct = 0;
-//        for (let i = 0; i < word.length; i++) {
-//          if (event.key === word.charAt(i)) {
-//            currentGuess[i] = event.key + " ";
-//            correct++;
-//            console.log("yup");
-//          }
-//        }
-//
-//        if  (correct === 0) {
-//          console.log("nope");
-//          hungLives--;
-//          $("#lives").text("Lives left: " +hungLives);
-//        }
-//        let guessString = currentGuess.join('');
-//       hangWord.text(guessString);
-//
-//        if (guessString.indexOf("_") === -1) {
-//          console.log("you Win");
-//        }
-//        if(hungLives===0){
-//          setTimeout(setupHang,100);
-//        }
-//      });
-//    }
-//      // $("#hangAgain").on('click', function(){
-//      //   $("#gameHangMan").empty();
-//      //   hangWord= " ";
-//      //   word = " ";
-//      //   currentGuess = [];
-//      //   setTimeout(setupHang,100);
-//      // });
-// }
+function checkLetter(letter){
+  // if($.inArray(letter,[ "a", "b", "c","d"])){
+  console.log(letter);
+  let correct = 0;
+  for (let i = 0; i < word.length; i++) {
+    if (letter === word.charAt(i)) {
+      currentGuess[i] = letter + " ";
+      correct++;
+      console.log("yup");
+    }
+  }
+
+  if  (correct === 0) {
+    console.log("nope");
+    hungLives--;
+    $("#lives").text("Lives left: " +hungLives);
+  }
+  guessString = currentGuess.join('');
+  hangWord.text(guessString);
+
+  if (guessString.indexOf("_") === -1) {
+    console.log("you Win");
+    $("#lives").hide();
+    // result = $("<div></div>");
+    result.text("You won, the word was "+word);
+    // $("#gameHangMan").append(result);
+  }
+
+  if(hungLives===0){
+    $("#lives").hide();
+    // result = $("<div></div>");
+    result.text("You lost, the word was "+word);
+    // $("#gameHangMan").append(result);
+  }
+// } else{console.log("What");}
+}
+function tryAgainHung(){
+    $("#lives").show();
+    result.text("");
+    word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+    hungLives=10;
+    $("#lives").text("Lives left: " +hungLives);
+    $("#gameHangMan").append(hangWord);
+    $("#gameHangMan").append($againHang);
+    currentGuess = [];
+    console.log(word);
+    for (let i = 0; i < word.length; i++) {
+      currentGuess.push("_ ");
+    };
+     guessString = currentGuess.join('');
+     hangWord.text(guessString);
+}
 
 
 function charAni(){

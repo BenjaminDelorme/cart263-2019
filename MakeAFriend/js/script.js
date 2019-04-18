@@ -11,24 +11,24 @@ let girl = false;
 let hangmanWord;
 let talkin = false; let discuss = false;
 let lady;let jokes;
+let commRPS;let commMain;let commHang;let commTrivia;
 $(document).ready(function(){
 
   $.getJSON('assets/data/data.json',fetchSpeech);
   $.getJSON('assets/data/questions.json',fetchQuestions);
 
   if (annyang) {
-    // Let's define our first command. First the text we expect, and then the function it should call
-    var commands = {
+    commMain = {
       'Hello': function() {
-        $('div').fadeOut();
-        gameStart();
+        console.log("said hello");
       }
     };
-
-    // Add our commands to annyang
-    annyang.addCommands(commands);
-
-    // Start listening. You can call this here, or attach this call to an event, button, etc.
+     commRPS = {
+      'Yes': function() {
+        console.log("said yes");
+      }
+    }
+    annyang.addCommands(commMain);
     annyang.start();
   }
 
@@ -278,6 +278,9 @@ function main(){
     $("#options").fadeIn();
     talkin=false;
     discuss=false;
+
+    annyang.removeCommands();
+    annyang.addCommands(commMain);
     // clearInterval(smallTalk);
   });
 
@@ -351,6 +354,19 @@ console.log(currentJoke);
 }
 
 function gameRPS(){
+
+  // if (annyang) {
+  //   var commands2 = {
+  //     'Yes': function() {
+  //       console.log("said yes");
+  //     }
+  //   };
+  //   annyang.addCommands(commands2);
+  //   annyang.start();
+  // }
+  annyang.removeCommands();
+  annyang.addCommands(commRPS);
+
   $("#games").hide();
   $("#rps").fadeIn();
 

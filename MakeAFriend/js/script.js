@@ -11,7 +11,8 @@ let girl = false;
 let hangmanWord;
 let talkin = false; let discuss = false;
 let lady;let jokes;
-let commRPS;let commMain;let commHang;let commTrivia;let commPlay;
+let commRPS;let commMain;let commHang;let commTrivia;
+let commPlay;let commTalk;let commShare;let commBlah;
 $(document).ready(function(){
 
   $.getJSON('assets/data/data.json',fetchSpeech);
@@ -19,10 +20,32 @@ $(document).ready(function(){
 
   if (annyang) {
     commMain = {
-      'Hello': function() {
-        console.log("said hello");
-      },  'Menu': backMenu,
-          'Play': play};
+          'Menu': backMenu,
+          'Play': play,
+          'Talk': talk
+        };
+    commTalk = {
+      "Menu": backMenu,
+      "Tell me a joke": tellJokes,
+      "I need to share": shareFeel,
+      "Let's just talk": aboutFriend,
+      "Stop": function(){
+        talkin=false;
+        discuss=false;
+      },
+      "I'm done": function(){
+        talkin=false;
+        discuss=false;
+      }
+    }
+    // commShare = {
+    //   'Menu': backMenu,
+    //   'Tell me a joke': tellJokes
+    // }
+    // commBlah = {
+    //   'Menu': backMenu,
+    //   'Tell me a joke': tellJokes
+    // }
     commPlay = {
      'Menu': backMenu,
      'Play rock paper scissors': gameRPS,
@@ -254,11 +277,7 @@ function main(){
 
   $("#playB").on('click',play);
 
-  $("#talkB").on('click',function(){
-    $("#options").fadeOut();
-    $("#talk").fadeIn();
-    $("#optionTalk").fadeIn();
-  });
+  $("#talkB").on('click',talk);
 
   $("#moreB").on('click',function(){
     $("#options").fadeOut();
@@ -278,6 +297,14 @@ function main(){
   $("#jokeB").on('click',tellJokes);
 }
 
+function talk(){
+  $("#options").fadeOut();
+  $("#talk").fadeIn();
+  $("#optionTalk").fadeIn();
+
+  annyang.removeCommands();
+  annyang.addCommands(commTalk);
+}
 function play(){
   $("#options").fadeOut();
   $("#play").fadeIn();
@@ -332,18 +359,24 @@ const beat = (time, array) => {
 
 }
 function aboutFriend(){
-$("#optionTalk").fadeOut();
+// $("#optionTalk").fadeOut();
+// annyang.removeCommands("Tell me a joke");
+// annyang.removeCommands("I need to share");
 talkin=true;
   beat(4000,test);
 }
 function shareFeel(){
-$("#optionTalk").fadeOut();
+// $("#optionTalk").fadeOut();
+// annyang.removeCommands("Tell me a joke");
+// annyang.removeCommands("Let's just talk");
 discuss=true;
   beat(4000,test2);
 }
 
 
 function tellJokes(){
+  talkin=false;
+  discuss=false;
   $("#jokePage").empty();
   $("#jokePage").show();
   let numJk = Math.floor(Math.random() * jokes.length);

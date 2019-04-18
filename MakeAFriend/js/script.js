@@ -1,15 +1,14 @@
 "use strict";
 let charName;
-let charAvatar = "assets/images/girl1-1.png"
-let friend;
-let charVoice ="US English Male";
-let pitch = 1.8;
+let charAvatar;
+let charVoice;
+let pitch;
 let rpsScoreYou = 0;
 let rpsScoreIts = 0;
 let hungLives = 10;
 let boy = false;
 let girl = false;
-let hangmanWord;
+let hangmanWord;let friend;
 let talkin = false; let discuss = false;
 let lady;let jokes;
 let commRPS;let commMain;let commHang;let commTrivia;
@@ -57,10 +56,11 @@ $(document).ready(function(){
     annyang.addCommands(commMain);
     annyang.start();
   }
-
+  $("#main").hide();
   $("#intro").hide();
-  // setTimeout(intro,500);
-  main();
+  setTimeout(intro,500);
+  // main();
+
 });
 
 function fetchSpeech(data){
@@ -115,7 +115,7 @@ function characterSelection(){
   skin.attr('src',skins[charID]);
 
   $('#avatar').append(skin);
-
+  charAni();
   $("#next").on('click',function(){
     charID++;
     if(charID === skins.length){charID=1;}
@@ -136,7 +136,6 @@ function characterSelection(){
     $("#check").hide();
     nameSelect();
   })
-
 }
 
 function nameSelect(){
@@ -262,6 +261,7 @@ $("#chooseVoice").on('click',function(){
   pitch = tempPitch;
   $("#voice").fadeOut();
   responsiveVoice.speak("Congratulations. You're my new friend.", charVoice, pitch);
+  main();
 });
  } );
 
@@ -272,8 +272,7 @@ $("#chooseVoice").on('click',function(){
 
 function main(){
   friend = $("#myFriend");
-  friend.attr('src',"assets/images/girl1-1.png");
-  // charAni();
+  friend.attr('src',charAvatar);
   $("#main").fadeIn();
   $("#play").hide();
   $("#talk").hide();
@@ -722,13 +721,13 @@ function tryAgainHung(){
 
 function charAni(){
   setInterval(function(){
-let path = $("img").attr('src');
+let path = $(".skin").attr('src');
     if(path.slice(-5)==="1.png"){
         let path2 = path.replace("1.png","2.png");
-          $("img").attr('src',path2);
+          $(".skin").attr('src',path2);
       }else{
         let path2 = path.replace("2.png","1.png");
-        $("img").attr('src',path2);
+        $(".skin").attr('src',path2);
       }
     },500)
 }

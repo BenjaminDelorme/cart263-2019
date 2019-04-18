@@ -19,3 +19,8 @@ This is the style file for this project.
 #games{position: absolute;left:20vw;top:50vw;}
 #optionTalk{position: absolute;left:30vw;top:50vw;}
 button{margin: 20px;font-size:2.5vw;}
+#rpsGuess{position: absolute;font-size: 4vw;left:70vw;top:10vw;}
+#rpsResult{position: absolute;font-size: 6vw;left:45vw;top:50vw;}
+.score{font-size: 4vw;}
+#logo{margin-left: 45%;width: 10%;}
+header{background-color: grey;}

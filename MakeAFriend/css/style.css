@@ -14,3 +14,8 @@ This is the style file for this project.
 #voiceSel{width: 40%;left:30vw;margin-top: 10vh;}
 #testVoice{position: absolute;top:90%;left:20%}
 #chooseVoice{position: absolute;top:90%;left:50%}
+#myFriend{width:20%;position: absolute;left:30vw;top:10vw;}
+#options{position: absolute;left:30vw;top:50vw;}
+#games{position: absolute;left:20vw;top:50vw;}
+#optionTalk{position: absolute;left:30vw;top:50vw;}
+button{margin: 20px;font-size:2.5vw;}

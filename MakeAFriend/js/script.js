@@ -1,6 +1,7 @@
 "use strict";
 let charName;
-let charAvatar;
+let charAvatar = "assets/images/girl1-1.png"
+let friend;
 let charVoice ="US English Male";
 let pitch = 1.8;
 let rpsScoreYou = 0;
@@ -58,7 +59,7 @@ $(document).ready(function(){
   }
 
   $("#intro").hide();
-  setTimeout(intro,500);
+  // setTimeout(intro,500);
   main();
 });
 
@@ -114,7 +115,6 @@ function characterSelection(){
   skin.attr('src',skins[charID]);
 
   $('#avatar').append(skin);
-  charAni();
 
   $("#next").on('click',function(){
     charID++;
@@ -271,6 +271,9 @@ $("#chooseVoice").on('click',function(){
 
 
 function main(){
+  friend = $("#myFriend");
+  friend.attr('src',"assets/images/girl1-1.png");
+  // charAni();
   $("#main").fadeIn();
   $("#play").hide();
   $("#talk").hide();
@@ -323,6 +326,7 @@ function play(){
 }
 
 function backMenu(){
+  friend.animate({left: "30vw",width: "20%"},500)
   $("#talk").hide();
   $("#play").hide();
   $("#more").hide();
@@ -413,6 +417,8 @@ console.log(currentJoke);
 
 function gameRPS(){
   responsiveVoice.speak("Okay let's play",charVoice, {pitch: pitch});
+  friend.animate({left: "40vw",width: "30%"},500)
+
   let myCall;
   commRPS = {
     'Menu': backMenu,
@@ -499,7 +505,7 @@ let finalGuess;
 function playTrivia(){
   responsiveVoice.cancel();
   responsiveVoice.speak("Are you ready?", charVoice , {pitch: pitch});
-
+  friend.animate({left: "40vw",width: "30%"},500)
   commTrivia = {
     "Menu": backMenu,
    "I think it's *finalGuess":checkAnswer,
@@ -554,7 +560,7 @@ function checkAnswer(finalGuess){
       let goodA = $("<div></div>");
       goodA.text("Good Answer");
       $("#q-display").append(goodA);
-      setTimeout(nextQuestion,1000);
+      setTimeout(nextQuestion,3000);
     }
     else{
       responsiveVoice.cancel();
@@ -577,8 +583,9 @@ let hangWord;
 let $againHang;
 let result;
 let letter;
+let $letterTryed;
 function setupHang(){
-
+  responsiveVoice.speak("Sure", charVoice , {pitch: pitch});
   commHang = {
     'Menu': backMenu,
    'Is there a *letter':checkLetter,
@@ -593,12 +600,16 @@ function setupHang(){
 
   $("#games").hide();
   $("#hang").fadeIn();
-  $("#hangPlay").on('click',gameHangman);
+  // $("#hangPlay").on('click',gameHangman);
+  gameHangman();
 }
 function gameHangman(letter){
+  friend.animate({left: "40vw",width: "30%"},500);
   responsiveVoice.speak("Let's do this", charVoice , {pitch: pitch});
   annyang.removeCommands('Play');
   $("#hangPlay").hide();
+  $letterTryed = $("<div></div>");
+  $letterTryed.text("");
   $againHang = $("<div></div>");
   $againHang.text("Try Again");
   $againHang.button();
@@ -610,6 +621,7 @@ function gameHangman(letter){
   $("#gameHangMan").append(result);
   $("#gameHangMan").append(hangWord);
   $("#gameHangMan").append($againHang);
+  $("#gameHangMan").append($letterTryed);
   let tempWord;
   tempWord = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
   word = tempWord.toLowerCase();
@@ -634,6 +646,7 @@ function checkLetter(letter){
   let myLetter = letter.toLowerCase();
   if("abcdefghijklmnopqrstuvwxyz".indexOf(myLetter) === -1){
     console.log("What");
+    responsiveVoice.speak("What", charVoice , {pitch: pitch});
     return;
   }
   console.log(myLetter);
@@ -643,8 +656,11 @@ function checkLetter(letter){
       currentGuess[i] = myLetter + " ";
       correct++;
       console.log("yup");
-      responsiveVoice.speak("Yup", charVoice , {pitch: pitch});
+      // responsiveVoice.speak("Yup", charVoice , {pitch: pitch});
     }
+  }
+  if (word.indexOf(myLetter) != -1) {
+    responsiveVoice.speak("Yup", charVoice , {pitch: pitch});
   }
 
   if  (correct === 0) {
@@ -652,9 +668,14 @@ function checkLetter(letter){
     console.log("nope");
     hungLives--;
     $("#lives").text("Lives left: " +hungLives);
+    let tryed =   $letterTryed.text();
+    if(tryed.indexOf(myLetter) === -1){
+      $letterTryed.text(tryed + myLetter+" ");
+    }
   }
   guessString = currentGuess.join('');
   hangWord.text(guessString);
+
 
   if (guessString.indexOf("_") === -1) {
     console.log("you Win");
@@ -684,9 +705,11 @@ function tryAgainHung(){
     tempWord = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
     word = tempWord.toLowerCase();
     hungLives=10;
+    $letterTryed.text("");
     $("#lives").text("Lives left: " +hungLives);
     $("#gameHangMan").append(hangWord);
     $("#gameHangMan").append($againHang);
+    $("#gameHangMan").append($letterTryed);
     currentGuess = [];
     console.log(word);
     for (let i = 0; i < word.length; i++) {

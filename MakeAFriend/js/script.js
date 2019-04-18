@@ -382,12 +382,13 @@ function gameRPS(){
 }
 function checkRPS(myCall){
   console.log(myCall);
-if(myCall === "Rock" || myCall === "paper" || myCall === "scissors" ){
+  let call = myCall.toLowerCase();
+if(call === "rock" || call === "paper" || call === "scissors" ){
   let rpsActions = ["Rock", "Paper", "Scissors"];
     let rpsGuess = rpsActions[Math.floor(Math.random() * rpsActions.length)];
     $("#rpsGuess").text(rpsGuess);
     //if you choose rock
-    if($(this).text() === "Rock" || myCall === "Rock"){
+    if($(this).text() === "Rock" || call === "rock"){
       if(rpsGuess === "Paper"){
         $("#rpsResult").text("You Lost");rpsScoreIts++
       }else if(rpsGuess === "Scissors"){
@@ -395,7 +396,7 @@ if(myCall === "Rock" || myCall === "paper" || myCall === "scissors" ){
       }else{$("#rpsResult").text("Draw");}
     }
     //if you choose paper
-    if($(this).text() === "Paper" || myCall === "paper"){
+    if($(this).text() === "Paper" || call === "paper"){
       if(rpsGuess === "Paper"){
         $("#rpsResult").text("Draw");
       }else if(rpsGuess === "Scissors"){
@@ -403,7 +404,7 @@ if(myCall === "Rock" || myCall === "paper" || myCall === "scissors" ){
       }else{$("#rpsResult").text("You Won");rpsScoreYou++;}
     }
     //if you choose scissors
-    if($(this).text() === "Scissors" || myCall === "scissors"){
+    if($(this).text() === "Scissors" || call === "scissors"){
       if(rpsGuess === "Paper"){
         $("#rpsResult").text("You Won");rpsScoreYou++;
       }else if(rpsGuess === "Scissors"){
@@ -420,19 +421,29 @@ let questions;
 function fetchQuestions(data){
   questions = data.questions;
 }
-
+let finalGuess;
 function playTrivia(){
+  commTrivia = {
+    'Menu': backMenu,
+   'I think it is *finalGuess':checkAnswer,
+   'Start':nextQuestion
+  };
+
+  annyang.removeCommands();
+  annyang.addCommands(commTrivia);
+
   $("#games").hide();
   $("#startQuiz").show();
    $("#q-display").empty();
   $("#trivia").fadeIn();
   $("#startQuiz").on('click',nextQuestion);
 }
-
+let currentQ;
 function nextQuestion(){
+  annyang.removeCommands('Start');
   $("#startQuiz").fadeOut();
    $("#q-display").empty();
-  let currentQ = getRandomElement(questions);
+  currentQ = getRandomElement(questions);
   console.log(currentQ.question);
   // console.log(currentQ.answers);
   // console.log(currentQ.correctAnswer);
@@ -449,19 +460,21 @@ function nextQuestion(){
 
   }
 
-  $(".triviaGuess").on('click',function(){
-    if($(this).text().charAt(0)===currentQ.correctAnswer){
-        console.log('correct')
-        let goodA = $("<div></div>");
-        goodA.text("Good Answer");
-        $("#q-display").append(goodA);
-        setTimeout(nextQuestion,1000);
-      }
-      else{
-        $(this).effect('shake');}
+  $(".triviaGuess").on('click',checkAnswer);
+}
 
-  });
-
+function checkAnswer(finalGuess){
+  let guess = finalGuess.toLowerCase();
+  console.log(guess);
+  if($(this).text().charAt(0)===currentQ.correctAnswer || guess === currentQ.correctAnswer){
+      console.log('correct')
+      let goodA = $("<div></div>");
+      goodA.text("Good Answer");
+      $("#q-display").append(goodA);
+      setTimeout(nextQuestion,1000);
+    }
+    else{
+      $(this).effect('shake');}
 }
 
 function getRandomElement(array){
@@ -511,8 +524,9 @@ function gameHangman(letter){
   $("#gameHangMan").append(result);
   $("#gameHangMan").append(hangWord);
   $("#gameHangMan").append($againHang);
-
-  word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+  let tempWord;
+  tempWord = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+  word = tempWord.toLowerCase();
   currentGuess = [];
     console.log(word);
     for (let i = 0; i < word.length; i++) {
@@ -528,12 +542,13 @@ function gameHangman(letter){
 }
 
 function checkLetter(letter){
+  let myLetter = letter.toLowerCase();
   // if($.inArray(letter,[ "a", "b", "c","d"])){
-  console.log(letter);
+  console.log(myLetter);
   let correct = 0;
   for (let i = 0; i < word.length; i++) {
-    if (letter === word.charAt(i)) {
-      currentGuess[i] = letter + " ";
+    if (myLetter === word.charAt(i)) {
+      currentGuess[i] = myLetter + " ";
       correct++;
       console.log("yup");
     }
@@ -566,7 +581,9 @@ function checkLetter(letter){
 function tryAgainHung(){
     $("#lives").show();
     result.text("");
-    word = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+    let tempWord;
+    tempWord = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+    word = tempWord.toLowerCase();
     hungLives=10;
     $("#lives").text("Lives left: " +hungLives);
     $("#gameHangMan").append(hangWord);

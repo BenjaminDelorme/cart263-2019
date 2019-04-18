@@ -303,6 +303,8 @@ function talk(){
   $("#talk").fadeIn();
   $("#optionTalk").fadeIn();
 
+  responsiveVoice.cancel();
+  responsiveVoice.speak("What do you want to talk about", charVoice , {pitch: pitch});
   annyang.removeCommands();
   annyang.addCommands(commTalk);
 }
@@ -313,7 +315,8 @@ function play(){
   $("#rps").hide();
   $("#hang").hide();
   $("#trivia").hide();
-
+  responsiveVoice.cancel();
+  responsiveVoice.speak("What do you want to play", charVoice , {pitch: pitch});
   annyang.removeCommands();
   annyang.addCommands(commPlay);
 
@@ -348,11 +351,13 @@ const beat = (time, array) => {
         console.log(call)
       }
       if(discuss===true){
-      rng = Math.floor(Math.random() * (10000 - 8000) ) + 8000;
+      rng = Math.floor(Math.random() * (13000 - 10000) ) + 10000;
       beat(Math.random() * rng, array);
         console.log(rng);
         let call = array[Math.floor(Math.random() * array.length)];
         console.log(call)
+        responsiveVoice.speak(call, charVoice , {pitch: pitch, volume: 0.7});
+
       }
 
     }, time)
@@ -371,10 +376,11 @@ function shareFeel(){
 // $("#optionTalk").fadeOut();
 // annyang.removeCommands("Tell me a joke");
 // annyang.removeCommands("Let's just talk");
+responsiveVoice.speak("Sure, tell me everything", charVoice , {pitch: pitch, volume: 0.7});
 $("#jokePage").empty();
 discuss=true;
 talkin=false;
-  beat(4000,test2);
+  beat(8000,test2);
 }
 
 
@@ -419,16 +425,15 @@ function gameRPS(){
   $("#games").hide();
   $("#rps").fadeIn();
 
-  $(".rpsMove").on('click',checkRPS);
+  $(".rpsMove").on('click',function(event){
+    checkRPS($(this).text());
+  });
 }
 function checkRPS(myCall){
 responsiveVoice.cancel();
   console.log(myCall);
   // if(myCall != annyang){console.log("clicked")}
-  // let call = myCall.toLowerCase();
-  let call1 = myCall;
-  call1 = $(this).text();
-  let call = call1.toLowerCase();
+  let call = myCall.toLowerCase();
 
   console.log(call)
 if(call === "rock" || call === "paper" || call === "scissors" ){
@@ -535,15 +540,14 @@ function nextQuestion(){
   }
 
   $(".triviaGuess").on('click',function(event){
-    checkAnswer(finalGuess);
-    return $(this).text().charAt(0);
+    checkAnswer($(this).text().charAt(0));
   });
 }
 
 function checkAnswer(finalGuess){
   let guess = finalGuess;
   console.log(guess);
-  if($(this).text().charAt(0)===currentQ.correctAnswer || guess === currentQ.correctAnswer){
+  if(guess === currentQ.correctAnswer){
       console.log('correct')
       responsiveVoice.cancel();
       responsiveVoice.speak("Good answer", charVoice , {pitch: pitch});

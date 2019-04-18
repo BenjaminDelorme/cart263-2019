@@ -1,8 +1,8 @@
 "use strict";
 let charName;
 let charAvatar;
-let charVoice;
-let pitch;
+let charVoice ="US English Male";
+let pitch = 1.8;
 let rpsScoreYou = 0;
 let rpsScoreIts = 0;
 let hungLives = 10;
@@ -14,15 +14,16 @@ let lady;let jokes;
 let commRPS;let commMain;let commHang;let commTrivia;
 let commPlay;let commTalk;let commShare;let commBlah;
 $(document).ready(function(){
-
   $.getJSON('assets/data/data.json',fetchSpeech);
   $.getJSON('assets/data/questions.json',fetchQuestions);
 
   if (annyang) {
     commMain = {
-          'Menu': backMenu,
-          'Play': play,
-          'Talk': talk
+          "Menu": backMenu,
+          "Let's play": play,
+          "Let's play something": play,
+          "Let's play a game": play,
+          "Let's talk": talk
         };
     commTalk = {
       "Menu": backMenu,
@@ -47,10 +48,10 @@ $(document).ready(function(){
     //   'Tell me a joke': tellJokes
     // }
     commPlay = {
-     'Menu': backMenu,
-     'Play rock paper scissors': gameRPS,
-     'Play hangman': setupHang,
-     'Play trivia': playTrivia
+     "Menu": backMenu,
+     "Let's play rock paper scissors": gameRPS,
+     "Let's play hangman": setupHang,
+     "Let's play trivia": playTrivia
    };
     annyang.addCommands(commMain);
     annyang.start();
@@ -258,7 +259,7 @@ $("#testVoice").on('click',function(){
 $("#chooseVoice").on('click',function(){
   soundTest = $("#say").val();
   charVoice =tempVoice;
-  pitch = {pitch: tempPitch};
+  pitch = tempPitch;
   $("#voice").fadeOut();
   responsiveVoice.speak("Congratulations. You're my new friend.", charVoice, pitch);
 });
@@ -319,7 +320,6 @@ function play(){
 }
 
 function backMenu(){
-
   $("#talk").hide();
   $("#play").hide();
   $("#more").hide();
@@ -362,14 +362,18 @@ function aboutFriend(){
 // $("#optionTalk").fadeOut();
 // annyang.removeCommands("Tell me a joke");
 // annyang.removeCommands("I need to share");
+$("#jokePage").empty();
 talkin=true;
+discuss=false;
   beat(4000,test);
 }
 function shareFeel(){
 // $("#optionTalk").fadeOut();
 // annyang.removeCommands("Tell me a joke");
 // annyang.removeCommands("Let's just talk");
+$("#jokePage").empty();
 discuss=true;
+talkin=false;
   beat(4000,test2);
 }
 
@@ -391,7 +395,10 @@ $("#jokePage").append($joke).append($answer);
 $joke.text(currentJoke);
 $answer.hide().text(currentAns).delay(2000).fadeIn();
 
-
+responsiveVoice.speak(currentJoke, charVoice , {pitch: pitch, onend: function(){
+  console.log(currentAns);
+  responsiveVoice.speak(currentAns,charVoice, {pitch: pitch});
+}});
 
 console.log(numJk);
 console.log(currentJoke);
@@ -399,6 +406,7 @@ console.log(currentJoke);
 }
 
 function gameRPS(){
+  responsiveVoice.speak("Okay let's play",charVoice, {pitch: pitch});
   let myCall;
   commRPS = {
     'Menu': backMenu,
@@ -414,8 +422,15 @@ function gameRPS(){
   $(".rpsMove").on('click',checkRPS);
 }
 function checkRPS(myCall){
+responsiveVoice.cancel();
   console.log(myCall);
-  let call = myCall.toLowerCase();
+  // if(myCall != annyang){console.log("clicked")}
+  // let call = myCall.toLowerCase();
+  let call1 = myCall;
+  call1 = $(this).text();
+  let call = call1.toLowerCase();
+
+  console.log(call)
 if(call === "rock" || call === "paper" || call === "scissors" ){
   let rpsActions = ["Rock", "Paper", "Scissors"];
     let rpsGuess = rpsActions[Math.floor(Math.random() * rpsActions.length)];
@@ -423,26 +438,47 @@ if(call === "rock" || call === "paper" || call === "scissors" ){
     //if you choose rock
     if($(this).text() === "Rock" || call === "rock"){
       if(rpsGuess === "Paper"){
+        responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Easy",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Lost");rpsScoreIts++
       }else if(rpsGuess === "Scissors"){
+        responsiveVoice.speak("I call scissors", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Fuck",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Won");rpsScoreYou++;
-      }else{$("#rpsResult").text("Draw");}
+      }else{
+        responsiveVoice.speak("I call rock", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Okay",charVoice, {pitch: pitch});}});
+        $("#rpsResult").text("Draw");}
     }
     //if you choose paper
     if($(this).text() === "Paper" || call === "paper"){
       if(rpsGuess === "Paper"){
+        responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Draw",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("Draw");
       }else if(rpsGuess === "Scissors"){
+        responsiveVoice.speak("I call scissors", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Yeah",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Lost");rpsScoreIts++
-      }else{$("#rpsResult").text("You Won");rpsScoreYou++;}
+      }else{
+        responsiveVoice.speak("I call rock", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Shit",charVoice, {pitch: pitch});}});
+        $("#rpsResult").text("You Won");rpsScoreYou++;}
     }
     //if you choose scissors
     if($(this).text() === "Scissors" || call === "scissors"){
       if(rpsGuess === "Paper"){
+        responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Cmon",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Won");rpsScoreYou++;
       }else if(rpsGuess === "Scissors"){
+        responsiveVoice.speak("I call scissors", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Hmm",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("Draw");
-      }else{$("#rpsResult").text("You Lost");rpsScoreIts++}
+      }else{
+        responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
+          responsiveVoice.speak("Hurray",charVoice, {pitch: pitch});}});
+        $("#rpsResult").text("You Lost");rpsScoreIts++}
     }
     $("#rpsYourScore").text(rpsScoreYou);
     $("#rpsItsScore").text(rpsScoreIts);
@@ -456,10 +492,13 @@ function fetchQuestions(data){
 }
 let finalGuess;
 function playTrivia(){
+  responsiveVoice.cancel();
+  responsiveVoice.speak("Are you ready?", charVoice , {pitch: pitch});
+
   commTrivia = {
-    'Menu': backMenu,
-   'I think it is *finalGuess':checkAnswer,
-   'Start':nextQuestion
+    "Menu": backMenu,
+   "I think it's *finalGuess":checkAnswer,
+   "Start":nextQuestion
   };
 
   annyang.removeCommands();
@@ -484,6 +523,8 @@ function nextQuestion(){
   q_box.text(currentQ.question);
   $("#q-display").append(q_box);
   console.log(currentQ.answers.length);
+  responsiveVoice.cancel();
+  responsiveVoice.speak(currentQ.question, charVoice , {pitch: pitch});
   for (let i = 0; i < currentQ.answers.length; i++){
     let a_box = $("<div class = 'triviaGuess'></div>");
     // q_box.text(currentQ.question);
@@ -493,20 +534,27 @@ function nextQuestion(){
 
   }
 
-  $(".triviaGuess").on('click',checkAnswer);
+  $(".triviaGuess").on('click',function(event){
+    checkAnswer(finalGuess);
+    return $(this).text().charAt(0);
+  });
 }
 
 function checkAnswer(finalGuess){
-  let guess = finalGuess.toLowerCase();
+  let guess = finalGuess;
   console.log(guess);
   if($(this).text().charAt(0)===currentQ.correctAnswer || guess === currentQ.correctAnswer){
       console.log('correct')
+      responsiveVoice.cancel();
+      responsiveVoice.speak("Good answer", charVoice , {pitch: pitch});
       let goodA = $("<div></div>");
       goodA.text("Good Answer");
       $("#q-display").append(goodA);
       setTimeout(nextQuestion,1000);
     }
     else{
+      responsiveVoice.cancel();
+      responsiveVoice.speak("Wrong", charVoice , {pitch: pitch});
       $(this).effect('shake');}
 }
 
@@ -544,6 +592,7 @@ function setupHang(){
   $("#hangPlay").on('click',gameHangman);
 }
 function gameHangman(letter){
+  responsiveVoice.speak("Let's do this", charVoice , {pitch: pitch});
   annyang.removeCommands('Play');
   $("#hangPlay").hide();
   $againHang = $("<div></div>");
@@ -569,14 +618,20 @@ function gameHangman(letter){
      hangWord.text(guessString);
 
 
-     // $(document).on('keydown',checkLetter(event));
+     $(document).on('keydown',function(event){
+       checkLetter(event.key);
+     });
      $againHang.on('click', tryAgainHung);
 
 }
 
 function checkLetter(letter){
+  responsiveVoice.cancel();
   let myLetter = letter.toLowerCase();
-  // if($.inArray(letter,[ "a", "b", "c","d"])){
+  if("abcdefghijklmnopqrstuvwxyz".indexOf(myLetter) === -1){
+    console.log("What");
+    return;
+  }
   console.log(myLetter);
   let correct = 0;
   for (let i = 0; i < word.length; i++) {
@@ -584,10 +639,12 @@ function checkLetter(letter){
       currentGuess[i] = myLetter + " ";
       correct++;
       console.log("yup");
+      responsiveVoice.speak("Yup", charVoice , {pitch: pitch});
     }
   }
 
   if  (correct === 0) {
+    responsiveVoice.speak("Nope", charVoice , {pitch: pitch});
     console.log("nope");
     hungLives--;
     $("#lives").text("Lives left: " +hungLives);
@@ -599,6 +656,7 @@ function checkLetter(letter){
     console.log("you Win");
     $("#lives").hide();
     // result = $("<div></div>");
+    responsiveVoice.speak("You won, the word was "+word, charVoice , {pitch: pitch});
     result.text("You won, the word was "+word);
     // $("#gameHangMan").append(result);
   }
@@ -606,12 +664,16 @@ function checkLetter(letter){
   if(hungLives===0){
     $("#lives").hide();
     // result = $("<div></div>");
+    responsiveVoice.speak("You lost, the word was "+word, charVoice , {pitch: pitch});
     result.text("You lost, the word was "+word);
     // $("#gameHangMan").append(result);
   }
 // } else{console.log("What");}
 }
 function tryAgainHung(){
+  responsiveVoice.cancel();
+  responsiveVoice.speak("Okay, here we go again", charVoice , {pitch: pitch});
+
     $("#lives").show();
     result.text("");
     let tempWord;

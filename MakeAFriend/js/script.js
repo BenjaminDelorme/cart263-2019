@@ -11,7 +11,7 @@ let girl = false;
 let hangmanWord;
 let talkin = false; let discuss = false;
 let lady;let jokes;
-let commRPS;let commMain;let commHang;let commTrivia;
+let commRPS;let commMain;let commHang;let commTrivia;let commPlay;
 $(document).ready(function(){
 
   $.getJSON('assets/data/data.json',fetchSpeech);
@@ -21,13 +21,14 @@ $(document).ready(function(){
     commMain = {
       'Hello': function() {
         console.log("said hello");
-      }
-    };
-     commRPS = {
-      'Yes': function() {
-        console.log("said yes");
-      }
-    }
+      },  'Menu': backMenu,
+          'Play': play};
+    commPlay = {
+     'Menu': backMenu,
+     'Play rock paper scissors': gameRPS,
+     'Play hangman': setupHang,
+     'Play trivia': playTrivia
+   };
     annyang.addCommands(commMain);
     annyang.start();
   }
@@ -251,14 +252,8 @@ function main(){
   $("#talk").hide();
   $("#more").hide();
 
-  $("#playB").on('click',function(){
-    $("#options").fadeOut();
-    $("#play").fadeIn();
-    $("#games").show();
-    $("#rps").hide();
-    $("#hang").hide();
-    $("#trivia").hide();
-  });
+  $("#playB").on('click',play);
+
   $("#talkB").on('click',function(){
     $("#options").fadeOut();
     $("#talk").fadeIn();
@@ -270,19 +265,7 @@ function main(){
     $("#more").fadeIn();
   });
 
-  $("#menu").on('click',function(){
-    $("#talk").hide();
-    $("#play").hide();
-    $("#more").hide();
-    $("#jokePage").hide();
-    $("#options").fadeIn();
-    talkin=false;
-    discuss=false;
-
-    annyang.removeCommands();
-    annyang.addCommands(commMain);
-    // clearInterval(smallTalk);
-  });
+  $("#menu").on('click',backMenu);
 
   $("#playRPS").on('click',gameRPS);
   $("#playHANG").on('click',setupHang);
@@ -294,6 +277,35 @@ function main(){
   $("#shareB").on('click',shareFeel);
   $("#jokeB").on('click',tellJokes);
 }
+
+function play(){
+  $("#options").fadeOut();
+  $("#play").fadeIn();
+  $("#games").show();
+  $("#rps").hide();
+  $("#hang").hide();
+  $("#trivia").hide();
+
+  annyang.removeCommands();
+  annyang.addCommands(commPlay);
+
+}
+
+function backMenu(){
+
+  $("#talk").hide();
+  $("#play").hide();
+  $("#more").hide();
+  $("#jokePage").hide();
+  $("#options").fadeIn();
+  talkin=false;
+  discuss=false;
+
+  annyang.removeCommands();
+  annyang.addCommands(commMain);
+  // clearInterval(smallTalk);
+}
+
 
 let test = ["yo","hi","wassup","bro"];
 let test2 = ["Hmm","I know","wow really","sorry"];
@@ -354,29 +366,28 @@ console.log(currentJoke);
 }
 
 function gameRPS(){
+  let myCall;
+  commRPS = {
+    'Menu': backMenu,
+   'I call *myCall':checkRPS
+  };
 
-  // if (annyang) {
-  //   var commands2 = {
-  //     'Yes': function() {
-  //       console.log("said yes");
-  //     }
-  //   };
-  //   annyang.addCommands(commands2);
-  //   annyang.start();
-  // }
   annyang.removeCommands();
   annyang.addCommands(commRPS);
 
   $("#games").hide();
   $("#rps").fadeIn();
 
+  $(".rpsMove").on('click',checkRPS);
+}
+function checkRPS(myCall){
+  console.log(myCall);
+if(myCall === "Rock" || myCall === "paper" || myCall === "scissors" ){
   let rpsActions = ["Rock", "Paper", "Scissors"];
-  $(".rpsMove").on('click',function(){
     let rpsGuess = rpsActions[Math.floor(Math.random() * rpsActions.length)];
     $("#rpsGuess").text(rpsGuess);
-
     //if you choose rock
-    if($(this).text() === "Rock"){
+    if($(this).text() === "Rock" || myCall === "Rock"){
       if(rpsGuess === "Paper"){
         $("#rpsResult").text("You Lost");rpsScoreIts++
       }else if(rpsGuess === "Scissors"){
@@ -384,7 +395,7 @@ function gameRPS(){
       }else{$("#rpsResult").text("Draw");}
     }
     //if you choose paper
-    if($(this).text() === "Paper"){
+    if($(this).text() === "Paper" || myCall === "paper"){
       if(rpsGuess === "Paper"){
         $("#rpsResult").text("Draw");
       }else if(rpsGuess === "Scissors"){
@@ -392,7 +403,7 @@ function gameRPS(){
       }else{$("#rpsResult").text("You Won");rpsScoreYou++;}
     }
     //if you choose scissors
-    if($(this).text() === "Scissors"){
+    if($(this).text() === "Scissors" || myCall === "scissors"){
       if(rpsGuess === "Paper"){
         $("#rpsResult").text("You Won");rpsScoreYou++;
       }else if(rpsGuess === "Scissors"){
@@ -401,7 +412,7 @@ function gameRPS(){
     }
     $("#rpsYourScore").text(rpsScoreYou);
     $("#rpsItsScore").text(rpsScoreIts);
-  });
+  }else{console.log("Play the game man")}
 }
 
 

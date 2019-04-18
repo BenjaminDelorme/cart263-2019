@@ -10,7 +10,7 @@ let boy = false;
 let girl = false;
 let hangmanWord;
 let talkin = false; let discuss = false;
-let lady;let jokes; let jokeAns;
+let lady;let jokes;
 $(document).ready(function(){
 
   $.getJSON('assets/data/data.json',fetchSpeech);
@@ -41,7 +41,7 @@ function fetchSpeech(data){
   lady = data.lady;
   hangmanWord = data.words;
   jokes = data.jokes;
-  jokeAns = data.jokeAns;
+
 }
 
 function intro(){
@@ -274,6 +274,7 @@ function main(){
     $("#talk").hide();
     $("#play").hide();
     $("#more").hide();
+    $("#jokePage").hide();
     $("#options").fadeIn();
     talkin=false;
     discuss=false;
@@ -329,9 +330,10 @@ discuss=true;
 
 function tellJokes(){
   $("#jokePage").empty();
+  $("#jokePage").show();
   let numJk = Math.floor(Math.random() * jokes.length);
-let currentJoke = jokes[numJk];
-let currentAns = jokeAns[numJk];
+let currentJoke = jokes[numJk].joke;
+let currentAns = jokes[numJk].answer;
 
 let $joke = $("<div></div>");
 let $answer = $("<div></div>");

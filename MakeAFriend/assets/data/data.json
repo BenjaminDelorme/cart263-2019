@@ -3,10 +3,6 @@
     "Hi and welcome to Make A Friend.Here, you will be able to make a friend with whom you can discuss,make jokes,play games and overall share moments for you to remember. Our goal here at Make A Friend is to not only recreate the experience of socializing with people and making friends,but also to enhence it by allowing a flawless relationship custom to your preferences.To start the experience,please allow us access to your microphone and click the button.", "Please select a gender for your friend.", "Now, select how you want your friend to look like.","What's your friend's name again?","Are you sure it's?","Great, now all you have to do is create a voice for your friend."
 
   ],
-  "jokeAns": [
-    "Cheese.",
-    "Probably because it hasn't come out yet."
-  ],
   "words": [
     "Aioli",
     "Ajvar",
@@ -109,7 +105,12 @@
     "Zacuscă"
   ],
   "jokes": [
-    "What did the cat say to the mouse?",
-    "Did you see the movie called constipation?"
+    {
+      "joke":"Did you see the movie called constipation?",
+      "answer":"Probably because it hasn't come out yet."
+    },{
+      "joke":"What did the cat say to the mouse?",
+      "answer":"Cheese."
+    }
   ]
 }

@@ -10,7 +10,7 @@ let boy = false;
 let girl = false;
 let hangmanWord;let friend;
 let talkin = false; let discuss = false;
-let lady;let jokes;let talks;
+let lady;let jokes;let talks;let films;let thoughts;let happy;let sad;
 let commRPS;let commMain;let commHang;let commTrivia;
 let commPlay;let commTalk;let commShare;let commBlah;
 $(document).ready(function(){
@@ -37,6 +37,8 @@ $(document).ready(function(){
       },
       "I'm done": function(){
         discuss=false;
+        responsiveVoice.speak("Okay well thanks for sharing how you feel", charVoice , {pitch: pitch});
+
       }
     }
     // commShare = {
@@ -66,8 +68,8 @@ $(document).ready(function(){
 function fetchSpeech(data){
   lady = data.lady;
   hangmanWord = data.words;
-  jokes = data.jokes;
-  talks = data.talk;
+  jokes = data.jokes;happy = data.happy;sad = data.sad;
+  talks = data.talk;films = data.film;thoughts = data.thoughts;
 }
 
 function intro(){
@@ -284,7 +286,15 @@ function main(){
 
   $("#moreB").on('click',function(){
     $("#options").fadeOut();
-    $("#more").fadeIn();
+    $("#premium").fadeIn();
+    $("#x").on('click',function(){
+      $("#premium").fadeOut();
+      $("#options").fadeIn();
+    });
+  });
+
+  $(".pay").on('click',function(){
+    alert("You don't have enough money! Your account is currently at: 2.68$");
   });
 
   $("#menu").on('click',backMenu);
@@ -385,12 +395,20 @@ $("#jokePage").empty();
 // talkin=true;
 discuss=false;
   // beat(4000,test);
-
+  let call1;let call2;
   let call = talks[Math.floor(Math.random() * talks.length)];
-  responsiveVoice.speak(call.subject, charVoice , {pitch: pitch});
+  if(call.subject.slice(-4)==="film"){
+    let rngFilm = films[Math.floor(Math.random() * films.length)];
+    call1 = call.subject +" "+ rngFilm;
+  }else{call1 = call.subject}
+  responsiveVoice.speak(call1, charVoice , {pitch: pitch});
   annyang.addCallback('result', function() {
   console.log("REsult");
-  responsiveVoice.speak(call.thought, charVoice , {pitch: pitch});
+  if(call.thought.slice(-3)==="was"){
+    let rngThought = thoughts[Math.floor(Math.random() * thoughts.length)];
+    call2 = call.thought +" "+ rngThought;
+  }else{call2 = call.thought}
+  responsiveVoice.speak(call2, charVoice , {pitch: pitch});
   annyang.removeCallback();
 
 });
@@ -402,7 +420,6 @@ function shareFeel(){
 responsiveVoice.speak("Sure, tell me everything", charVoice , {pitch: pitch, volume: 0.7});
 $("#jokePage").empty();
 discuss=true;
-talkin=false;
   beat(8000,test2);
 }
 
@@ -459,7 +476,8 @@ responsiveVoice.cancel();
   console.log(myCall);
   // if(myCall != annyang){console.log("clicked")}
   let call = myCall.toLowerCase();
-
+  let good = happy[Math.floor(Math.random() * happy.length)];
+  let bad = sad[Math.floor(Math.random() * sad.length)];
   console.log(call)
 if(call === "rock" || call === "paper" || call === "scissors" ){
   let rpsActions = ["Rock", "Paper", "Scissors"];
@@ -469,15 +487,15 @@ if(call === "rock" || call === "paper" || call === "scissors" ){
     if($(this).text() === "Rock" || call === "rock"){
       if(rpsGuess === "Paper"){
         responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Easy",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak(good,charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Lost");rpsScoreIts++
       }else if(rpsGuess === "Scissors"){
         responsiveVoice.speak("I call scissors", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Fuck",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak(bad,charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Won");rpsScoreYou++;
       }else{
         responsiveVoice.speak("I call rock", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Okay",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak("Draw",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("Draw");}
     }
     //if you choose paper
@@ -488,26 +506,26 @@ if(call === "rock" || call === "paper" || call === "scissors" ){
         $("#rpsResult").text("Draw");
       }else if(rpsGuess === "Scissors"){
         responsiveVoice.speak("I call scissors", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Yeah",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak(good,charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Lost");rpsScoreIts++
       }else{
         responsiveVoice.speak("I call rock", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Shit",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak(bad,charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Won");rpsScoreYou++;}
     }
     //if you choose scissors
     if($(this).text() === "Scissors" || call === "scissors"){
       if(rpsGuess === "Paper"){
         responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Cmon",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak(bad,charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Won");rpsScoreYou++;
       }else if(rpsGuess === "Scissors"){
         responsiveVoice.speak("I call scissors", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Hmm",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak("Draw",charVoice, {pitch: pitch});}});
         $("#rpsResult").text("Draw");
       }else{
         responsiveVoice.speak("I call paper", charVoice , {pitch: pitch, onend: function(){
-          responsiveVoice.speak("Hurray",charVoice, {pitch: pitch});}});
+          responsiveVoice.speak(good,charVoice, {pitch: pitch});}});
         $("#rpsResult").text("You Lost");rpsScoreIts++}
     }
     $("#rpsYourScore").text(rpsScoreYou);

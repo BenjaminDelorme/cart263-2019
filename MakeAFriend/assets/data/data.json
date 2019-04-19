@@ -115,11 +115,23 @@
   ],
   "talk": [
     {
-      "subject":"Did you see the film Terminator",
-      "thought":"I thought it was bad"
+      "subject":"Did you see the film",
+      "thought":"I thought it was"
     },{
       "subject":"How's work?",
       "thought":"Yeh me I don't really have a job."
     }
+  ],
+  "film":[
+    "Terminator","E.T","Indiana Jones"
+  ],
+  "thoughts":[
+    "boring","bad","okay","good"
+  ],
+  "happy":[
+    "hurray","easy","good","I win"
+  ],
+  "sad":[
+    "fuck","damn","okay","shit"
   ]
 }

@@ -24,3 +24,4 @@ button{margin: 20px;font-size:2.5vw;}
 .score{font-size: 4vw;}
 #logo{margin-left: 45%;width: 10%;}
 header{background-color: grey;}
+#premium{display:none;position: absolute;width:50%;background-color: white;left:20vw;}

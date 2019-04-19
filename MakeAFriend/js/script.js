@@ -1,8 +1,8 @@
 "use strict";
 let charName;
-let charAvatar;
-let charVoice;
-let pitch;
+let charAvatar = "assets/images/guy1-1.png"
+let charVoice = "US English Male"
+let pitch = 1;
 let rpsScoreYou = 0;
 let rpsScoreIts = 0;
 let hungLives = 10;
@@ -10,7 +10,7 @@ let boy = false;
 let girl = false;
 let hangmanWord;let friend;
 let talkin = false; let discuss = false;
-let lady;let jokes;
+let lady;let jokes;let talks;
 let commRPS;let commMain;let commHang;let commTrivia;
 let commPlay;let commTalk;let commShare;let commBlah;
 $(document).ready(function(){
@@ -30,12 +30,12 @@ $(document).ready(function(){
       "Tell me a joke": tellJokes,
       "I need to share": shareFeel,
       "Let's just talk": aboutFriend,
+      "Tell me something": aboutFriend,
       "Stop": function(){
-        talkin=false;
         discuss=false;
+        responsiveVoice.cancel();
       },
       "I'm done": function(){
-        talkin=false;
         discuss=false;
       }
     }
@@ -58,8 +58,8 @@ $(document).ready(function(){
   }
   $("#main").hide();
   $("#intro").hide();
-  setTimeout(intro,500);
-  // main();
+  // setTimeout(intro,500);
+  main();
 
 });
 
@@ -67,7 +67,7 @@ function fetchSpeech(data){
   lady = data.lady;
   hangmanWord = data.words;
   jokes = data.jokes;
-
+  talks = data.talk;
 }
 
 function intro(){
@@ -298,9 +298,14 @@ function main(){
 
   $("#shareB").on('click',shareFeel);
   $("#jokeB").on('click',tellJokes);
+    talkin = true;
+  if(talkin === true){
+      beat(14000,test);
+  }
 }
 
 function talk(){
+  talkin = false;
   $("#options").fadeOut();
   $("#talk").fadeIn();
   $("#optionTalk").fadeIn();
@@ -311,6 +316,7 @@ function talk(){
   annyang.addCommands(commTalk);
 }
 function play(){
+  talkin = false;
   $("#options").fadeOut();
   $("#play").fadeIn();
   $("#games").show();
@@ -325,33 +331,37 @@ function play(){
 }
 
 function backMenu(){
-  friend.animate({left: "30vw",width: "20%"},500)
+  friend.animate({left: "30vw",width: "20%"},500);
   $("#talk").hide();
   $("#play").hide();
   $("#more").hide();
   $("#jokePage").hide();
   $("#options").fadeIn();
-  talkin=false;
+  talkin = true;
   discuss=false;
 
   annyang.removeCommands();
   annyang.addCommands(commMain);
   // clearInterval(smallTalk);
+  if(talkin === true){
+      beat(14000,test);
+  }
 }
 
 
-let test = ["yo","hi","wassup","bro"];
+let test = ["boring","let's do something","wassup","you there?"];
 let test2 = ["Hmm","I know","wow really","sorry"];
 const beat = (time, array) => {
 
     setTimeout(()=> {
       let rng;
       if(talkin===true){
-      rng = Math.floor(Math.random() * (7000 - 4000) ) + 4000;
+      rng = Math.floor(Math.random() * (15000 - 12000) ) + 10000;
       beat(Math.random() * rng, array);
         console.log(rng);
         let call = array[Math.floor(Math.random() * array.length)];
         console.log(call)
+        responsiveVoice.speak(call, charVoice , {pitch: pitch});
       }
       if(discuss===true){
       rng = Math.floor(Math.random() * (13000 - 10000) ) + 10000;
@@ -366,14 +376,24 @@ const beat = (time, array) => {
     }, time)
 
 }
+
 function aboutFriend(){
 // $("#optionTalk").fadeOut();
 // annyang.removeCommands("Tell me a joke");
 // annyang.removeCommands("I need to share");
 $("#jokePage").empty();
-talkin=true;
+// talkin=true;
 discuss=false;
-  beat(4000,test);
+  // beat(4000,test);
+
+  let call = talks[Math.floor(Math.random() * talks.length)];
+  responsiveVoice.speak(call.subject, charVoice , {pitch: pitch});
+  annyang.addCallback('result', function() {
+  console.log("REsult");
+  responsiveVoice.speak(call.thought, charVoice , {pitch: pitch});
+  annyang.removeCallback();
+
+});
 }
 function shareFeel(){
 // $("#optionTalk").fadeOut();

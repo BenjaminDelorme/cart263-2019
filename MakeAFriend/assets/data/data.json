@@ -112,5 +112,14 @@
       "joke":"What did the cat say to the mouse?",
       "answer":"Cheese."
     }
+  ],
+  "talk": [
+    {
+      "subject":"Did you see the film Terminator",
+      "thought":"I thought it was bad"
+    },{
+      "subject":"How's work?",
+      "thought":"Yeh me I don't really have a job."
+    }
   ]
 }

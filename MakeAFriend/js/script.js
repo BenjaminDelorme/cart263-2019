@@ -9,7 +9,7 @@ let rpsScoreYou = 0;
 let rpsScoreIts = 0;
 let hungLives = 10;
 let boy = false;
-let girl = false;
+let girl = false; let gameOn = false;
 let hangmanWord;let friend;let hint;let hints = [];
 let talkin = false; let discuss = false; let rotationHint;
 let lady;let jokes;let talks;let films;let thoughts;let happy;let sad;
@@ -66,7 +66,29 @@ $(document).ready(function(){
   $("#main").hide();
   $("#intro").hide();
   Ani();
-  loading();
+// localStorage.clear();
+  let game = localStorage.getItem('gameState');
+  if(game === null || game === "false"){
+    // console.log("Null bitch");
+    gameOn = false;
+  } else if(game === "true"){
+    gameOn = true;
+  }
+  console.log(game);
+  console.log(gameOn);
+
+  // gameOn= game;
+  if(gameOn === false){
+      loading();
+  }else if(gameOn === true){
+    $("#load").hide();
+    $("#logo").show();
+    charAvatar = localStorage.getItem('theSkin');
+    charVoice = localStorage.getItem('theVoice');
+    pitch = localStorage.getItem('thePitch');
+    charName = localStorage.getItem('theName');
+    main();
+  }
   // setTimeout(intro,500);
   // main();
 
@@ -160,6 +182,7 @@ function characterSelection(){
   });
   $("#sel").on('click',function(){
     charAvatar = skin.attr('src');
+    localStorage.setItem('theSkin',charAvatar);
     console.log(charAvatar);
     $("#avatar").fadeOut();
     $("#name").delay(500).fadeIn();
@@ -183,6 +206,7 @@ function nameSelect(){
      });
     $("#yes").on('click',function(){
       charName = name;
+      localStorage.setItem('theName',charName);
       console.log(charName);
       $(".charName").text(charName);
 
@@ -289,11 +313,17 @@ $("#chooseVoice").on('click',function(){
   soundTest = $("#say").val();
   charVoice =tempVoice;
   pitch = tempPitch;
+  localStorage.setItem('theVoice',charVoice);
+  localStorage.setItem('thePitch',pitch);
   $("#itsName").text(charName+"'s")
   $("#voice").fadeOut();
   responsiveVoice.speak(lady[8], "US English Female", {onend: function(){
     responsiveVoice.speak("Congratulations. You're my new friend.", charVoice, pitch);
     main();
+    gameOn = true;
+    localStorage.setItem('gameState',gameOn);
+    localStorage.setItem('yourScore',"0");
+    localStorage.setItem('itsScore',"0");
   }});
 
 });
@@ -305,6 +335,7 @@ $("#chooseVoice").on('click',function(){
 
 
 function main(){
+  $("#newFriend").on('click',reset);
   friend = $("#myFriend");
   friend.attr('src',charAvatar);
   hint = $("#hint");
@@ -505,12 +536,15 @@ function gameRPS(){
     'Menu': backMenu,
    'I call *myCall':checkRPS
   };
-
   annyang.removeCommands();
   annyang.addCommands(commRPS);
 
   $("#games").hide();
   $("#rps").fadeIn();
+  rpsScoreYou = localStorage.getItem('yourScore');
+  rpsScoreIts = localStorage.getItem('itsScore');
+  $("#rpsYourScore").text(rpsScoreYou);
+  $("#rpsItsScore").text(rpsScoreIts);
 
   $(".rpsMove").on('click',function(event){
     checkRPS($(this).text());
@@ -575,6 +609,10 @@ if(call === "rock" || call === "paper" || call === "scissors" ){
           responsiveVoice.speak(good,charVoice, {pitch: pitch});}});
         $("#rpsResult").fadeIn("fast").text("You Lost");rpsScoreIts++}
     }
+
+    localStorage.setItem('yourScore',rpsScoreYou);
+    localStorage.setItem('itsScore',rpsScoreIts);
+
     $("#rpsYourScore").text(rpsScoreYou);
     $("#rpsItsScore").text(rpsScoreIts);
   }else{console.log("Play the game man")}
@@ -694,7 +732,7 @@ function setupHang(){
 }
 function gameHangman(letter){
   hintID=0;
-  hints = ["Is there a 's' ","Is there an 'o' ","Try again","Menu"];
+  hints = ["Is there a s ","Is there an o ","Try again","Menu"];
 friend.animate({left: "40vw",top: "6vw",width: "30%"},500);
   responsiveVoice.speak("Let's do this", charVoice , {pitch: pitch});
   annyang.removeCommands('Play');
@@ -842,6 +880,10 @@ let path = $(".skin").attr('src');
     },500)
 }
 
+function reset(){
+  localStorage.clear();
+  location.reload();
+}
 function Ani(){
   setInterval(function(){
     if($("#info").attr('src') === "assets/images/info-1.png"){

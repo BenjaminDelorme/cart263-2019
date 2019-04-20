@@ -33,9 +33,9 @@ $(document).ready(function(){
       "I need to share": shareFeel,
       "Let's just talk": aboutFriend,
       "Tell me something": aboutFriend,
-      "Stop": function(){
-        responsiveVoice.cancel();
-        annyang.removeCallback();
+      "You're funny": function(){
+        responsiveVoice.speak("I know I'm funny", charVoice , {pitch: pitch});
+
 
       },
       "I'm done": function(){
@@ -66,7 +66,8 @@ $(document).ready(function(){
   $("#main").hide();
   $("#intro").hide();
   Ani();
-  setTimeout(intro,500);
+  loading();
+  // setTimeout(intro,500);
   // main();
 
 });
@@ -78,10 +79,29 @@ function fetchSpeech(data){
   talks = data.talk;films = data.film;thoughts = data.thoughts;
 }
 
+
+function loading(){
+  let value = 5;
+  setInterval(function(){
+    $( "#loading" ).progressbar({
+      value: value
+
+    });
+    value++;
+    if(value === 100){
+      $("#load").fadeOut();
+      intro();
+    }
+  },200);
+
+
+
+}
 function intro(){
 
   // console.log(lady1);
   $("#intro").delay(500).fadeIn();
+  $("#logo").delay(500).fadeIn();
   responsiveVoice.speak(lady[0], "US English Female");
   responsiveVoice.speak(lady[1], "US English Female");
   responsiveVoice.speak(lady[2], "US English Female");
@@ -330,7 +350,7 @@ function main(){
 }
 
 function talk(){
-  hints = ["Tell me something","Tell me a joke","Let's just talk","I need to share","Menu"];
+  hints = ["Tell me something","Tell me a joke","Let's just talk","I need to share","You're funny","Menu"];
   talkin = false;
   $("#options").fadeOut();
   $("#talk").fadeIn();
@@ -829,5 +849,13 @@ function Ani(){
       }else{
         $("#info").attr('src',"assets/images/info-1.png");
       }
-    },500)
+    },500);
+
+    setInterval(function(){
+      if($("#logoLoad").attr('src') === "assets/images/logo1.png"){
+          $("#logoLoad").attr('src',"assets/images/logo2.png");
+        }else{
+          $("#logoLoad").attr('src',"assets/images/logo1.png");
+        }
+      },500);
 }

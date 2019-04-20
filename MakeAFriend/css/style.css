@@ -3,25 +3,57 @@
 This is the style file for this project.
 
 **********************************************/
+
+
+
+#startText{width: 70%;text-align: center;margin-left: auto;margin-right: auto;}
 #create{display: none;text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vh;}
 #intro{text-align: center;margin-left: auto;margin-right: auto;margin-top: 5vh;}
-.skin{width: 20vw;}
-#next{position: absolute;left: 70vw;top:50vh;}
-#prev{position: absolute;left: 30vw;top:50vh;}
-#sel{position: absolute;left: 50vw;top:60vh;}
+.skin{width: 20vw;}#hint{position: absolute;left: 10vw;top:2vw;display: none;}
+#next{position: absolute;left: 80vw;top:50vh;}#info{display: none;position: absolute;left: 6vw;top:2vw;width: 2.6vw;}
+#prev{position: absolute;left: 10vw;top:50vh;}
+#sel{position: absolute;left: 45vw;top:85vh;}#chosenName{font-size: 3vw;}
+#nameSelect{width:5%;font-size: 1vw;margin-top: 30px;}
+#skinVoice{position: absolute;left: 15vw;}
 #check{background-color: white;position: absolute;width: 100%;height: 100%;top: 0px;}
-#pitch{width: 40%;left:30vw;margin-top: 10vh;}
+#pitch{width: 40%;left:30vw;margin-top: 10vh;}#newFriend{position: absolute;font-size: 1.5vw;display: none;}
 #voiceSel{width: 40%;left:30vw;margin-top: 10vh;}
 #testVoice{position: absolute;top:90%;left:20%}
-#chooseVoice{position: absolute;top:90%;left:50%}
+#voiceSel{position: absolute;left:40vw;}
+#pitch{position: absolute;left:40vw;top:20vw;}
+#testVoice{position: absolute;left:40vw;top:30vw;}
+#chooseVoice{position: absolute;left:60vw;top:30vw;}
+
 #myFriend{width:20%;position: absolute;left:30vw;top:10vw;}
 #options{position: absolute;left:30vw;top:50vw;}
 #games{position: absolute;left:20vw;top:50vw;}
 #optionTalk{position: absolute;left:30vw;top:50vw;}
-button{margin: 20px;font-size:2.5vw;}
+button{margin: 20px;font-size:3vw;font-family: 'Cute Font';}
+#menu{width:15vw;padding: 10px;border-radius: 12px;}
+#playB{left:40vw;bottom:30vw;position: absolute;width:15vw;padding: 30px;border-radius: 12px;}
+#talkB{left:40vw;bottom:20vw;position: absolute;width:15vw;padding: 30px;border-radius: 12px;}
+#moreB{right:13vw;font-size:2.5vw;bottom:4vw;position: absolute;width:10vw;padding: 6px;border-radius: 12px;}
+#playRPS{left:40vw;font-size:2.5vw;bottom:30vw;position: absolute;width:23vw;padding: 30px;border-radius: 12px;}
+#playHANG{left:40vw;font-size:2.5vw;bottom:20vw;position: absolute;width:15vw;padding: 30px;border-radius: 12px;}
+#playTRIV{left:40vw;font-size:2.5vw;bottom:10vw;position: absolute;width:15vw;padding: 30px;border-radius: 12px;}
+
+#aboutB{left:40vw;font-size:2.5vw;bottom:30vw;position: absolute;width:23vw;padding: 30px;border-radius: 12px;}
+#jokeB{left:40vw;font-size:2.5vw;bottom:20vw;position: absolute;width:15vw;padding: 30px;border-radius: 12px;}
+#shareB{left:40vw;font-size:2.5vw;bottom:10vw;position: absolute;width:20vw;padding: 30px;border-radius: 12px;}
+#heSaid{position: absolute;font-size: 2.2vw;right:5vw;width:20vw;height: 8vw;bottom:25vw;}
+#joke{position: absolute;font-size: 2.2vw;right:5vw;width:20vw;height: 8vw;bottom:25vw;}
+#jkAns{position: absolute;font-size: 1.3vw;right:5vw;width:20vw;bottom:15vw;}
 #rpsGuess{position: absolute;font-size: 4vw;left:70vw;top:10vw;}
-#rpsResult{position: absolute;font-size: 6vw;left:45vw;top:50vw;}
-.score{font-size: 4vw;}
-#logo{margin-left: 45%;width: 10%;}
-header{background-color: grey;}
-#premium{display:none;position: absolute;width:50%;background-color: white;left:20vw;}
+#rpsResult{position: absolute;font-size: 7vw;left:70vw;top:20vw;}
+.score{font-size: 3vw;}
+#lives{font-size: 2vw;}.tryed{font-size:2vw;margin-top: 5vw;}.underlines{font-size:4vw;}.tryAgain{width: 5vw;margin-top: 6vw;}
+#logo{margin-left: 43%;width: 12%;}.resultHang{font-size:2vw;}
+
+.fbQna{font-size: 3vw;margin-top: 3vw;}
+#trivia{margin-left: 2vw;}
+.question{font-size: 2vw;margin-bottom: 4vw;width:40vw;}
+#startQuiz{width:10vw;padding: 6px;border-radius: 12px;}
+html{background-color: #f7f7f7;font-family: 'Barlow', sans-serif;}
+#premium{display:none;position: absolute;width:50%;background-color: white;left:30vw;bottom:10vw;
+border-width: thick;border: 10px;border-style: double;padding: 24px; }
+.pay{font-size: 2vw;}li{list-style: none;}#x{position:absolute;top:0vw;right: 0;padding:5px; height: 5vw;width: 5vw;}

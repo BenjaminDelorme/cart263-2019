@@ -1,33 +1,96 @@
 {
   "questions": [
     {
-    "question": "Who is the strongest?",
+    "question": "Who invented the telephone?",
     "answers": [
 
-      "a: Superman",
-      "b: The Terminator",
-      "c: Waluigi, obviously"
+      "a: Bell",
+      "b: Tesla",
+      "c: Edison"
+    ],
+    "correctAnswer": "a"
+  },
+  {
+    "question": "How many states are there in the United States of America?",
+    "answers": [
+      "a: 48",
+      "b: 51",
+      "c: 50"
     ],
     "correctAnswer": "c"
   },
   {
-    "question": "What is the best site ever created?",
+    "question": "Where is the Amazon forest?",
     "answers": [
-      "a: SitePoint",
-      "b: Simple Steps Code",
-      "c: Trick question; they're both the best"
+      "a: Argentina",
+      "b: Brazil",
+      "c: Chili"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "When did the First World War start?",
+    "answers": [
+      "a: 1914",
+      "b: 1918",
+      "c: 1939"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What nationality was Chopin?",
+    "answers": [
+      "a: French",
+      "b: Polish",
+      "c: Austrian"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "How many children has Queen Elizabeth the Second got?",
+    "answers": [
+      "a: 2",
+      "b: 3",
+      "c: 4"
     ],
     "correctAnswer": "c"
-  },
-  {
-    "question": "Where is Waldo really?",
+  },{
+    "question": "What did the 7 dwarves do for a job?",
     "answers": [
-      "a: Antarctica",
-      "b: Exploring the Pacific Ocean",
-      "c: Sitting in a tree",
-      "d: Minding his own business, so stop asking"
+      "a: Jobless",
+      "b: Loggers",
+      "c: Miners"
     ],
-    "correctAnswer": "d"
+    "correctAnswer": "c"
+  },{
+    "question": "What’s the most malleable metal?",
+    "answers": [
+      "a: Gold",
+      "b: Silver",
+      "c: Iron"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "Which planet spins the fastest?",
+    "answers": [
+      "a: Jupiter",
+      "b: Saturn",
+      "c: Venus"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "How old is the sun?",
+    "answers": [
+      "a: About 7 milliom years old",
+      "b: About 5 billion years old",
+      "c: About 2 billion years old"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Which country gave the USA the ‘Statute of Liberty?",
+    "answers": [
+      "a: Russia",
+      "b: Italy",
+      "c: France"
+    ],
+    "correctAnswer": "c"
   }
   ]
 }

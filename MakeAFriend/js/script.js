@@ -66,6 +66,7 @@ $(document).ready(function(){
   $("#main").hide();
   $("#intro").hide();
   Ani();
+  charAni();
 // localStorage.clear();
   let game = localStorage.getItem('gameState');
   if(game === null || game === "false"){
@@ -87,6 +88,7 @@ $(document).ready(function(){
     charVoice = localStorage.getItem('theVoice');
     pitch = localStorage.getItem('thePitch');
     charName = localStorage.getItem('theName');
+    responsiveVoice.speak("Welcome back", charVoice, pitch);
     main();
   }
   // setTimeout(intro,500);
@@ -104,18 +106,28 @@ function fetchSpeech(data){
 
 function loading(){
   let value = 5;
+  let $start = $("<div></div>");
+  $start.hide();
+  $("#load").append($start);
+  $start.text("Start").button();
+
   setInterval(function(){
     $( "#loading" ).progressbar({
       value: value
 
     });
-    value++;
-    if(value === 100){
-      $("#load").fadeOut();
-      intro();
+    value = value+2;
+    if(value >= 100){
+      $("#loadTitle").fadeOut();
+      // $("#loading").fadeOut();
+      $start.delay(500).fadeIn();
+
     }
   },200);
-
+  $start.on('click',function(){
+    $("#load").fadeOut("slow");
+    intro();
+  });
 
 
 }
@@ -167,7 +179,7 @@ function characterSelection(){
   skin.attr('src',skins[charID]);
 
   $('#avatar').append(skin);
-  charAni();
+
   $("#next").on('click',function(){
     charID++;
     if(charID === skins.length){charID=1;}
@@ -335,7 +347,18 @@ $("#chooseVoice").on('click',function(){
 
 
 function main(){
-  $("#newFriend").on('click',reset);
+  $("#newFriend").on('click',function(){
+    $("#goodbye").fadeIn();
+    talkin = false;
+    $("#noBye").on('click',function(){
+      $("#goodbye").fadeOut();
+      talkin = true;
+      });
+      $("#yesBye").on('click',reset);
+  });
+  $("#buddy").attr('src',charAvatar);
+  $("#budName").text(charName);
+
   friend = $("#myFriend");
   friend.attr('src',charAvatar);
   hint = $("#hint");
@@ -868,7 +891,7 @@ function rotateHints(){
 }
 
 function charAni(){
-  setInterval(function(){
+   setInterval(function(){
 let path = $(".skin").attr('src');
     if(path.slice(-5)==="1.png"){
         let path2 = path.replace("1.png","2.png");
@@ -877,7 +900,20 @@ let path = $(".skin").attr('src');
         let path2 = path.replace("2.png","1.png");
         $(".skin").attr('src',path2);
       }
-    },500)
+    },500);
+
+
+    setInterval(function(){
+   let path = $("#myFriend").attr('src');
+     if(path.slice(-5)==="1.png"){
+         let path2 = path.replace("1.png","2.png");
+           $("#myFriend").attr('src',path2);
+       }else{
+         let path2 = path.replace("2.png","1.png");
+         $("#myFriend").attr('src',path2);
+       }
+     },500);
+
 }
 
 function reset(){

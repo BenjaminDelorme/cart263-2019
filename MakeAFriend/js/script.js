@@ -24,6 +24,7 @@ let commPlay;let commTalk;let commShare;let commBlah;
 //This is whenever the program starts
 $(document).ready(function(){
   //Fetch the data from the JSON files and put the arrays to the variables
+
   $.getJSON('assets/data/data.json',fetchSpeech);
   $.getJSON('assets/data/questions.json',fetchQuestions);
 
@@ -173,9 +174,9 @@ function characterSelection(){
   let skins=[];
   let charID = 1;
   if(boy===true){
-    skins = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png"];
+    skins = ["","assets/images/guy1-1.png","assets/images/guy2-1.png","assets/images/guy3-1.png","assets/images/guy4-1.png","assets/images/guy5-1.png","assets/images/guy6-1.png","assets/images/guy7-1.png","assets/images/guy8-1.png","assets/images/guy9-1.png","assets/images/guy10-1.png"];
   } else if(girl === true){
-    skins =["","assets/images/girl1-1.png","assets/images/girl2-1.png","assets/images/girl3-1.png","assets/images/girl4-1.png","assets/images/girl5-1.png"];
+    skins =["","assets/images/girl1-1.png","assets/images/girl2-1.png","assets/images/girl3-1.png","assets/images/girl4-1.png","assets/images/girl5-1.png","assets/images/girl6-1.png","assets/images/girl7-1.png","assets/images/girl8-1.png","assets/images/girl9-1.png","assets/images/girl10-1.png"];
   }
   let skin = $('<img class="skin" src=""></img>');
   skin.attr('src',skins[charID]);
@@ -719,6 +720,7 @@ function checkAnswer(finalGuess){
     else{
       responsiveVoice.cancel();
       responsiveVoice.speak("Wrong", charVoice , {pitch: pitch});
+    }
 }
 //function where it gets a random element from the array
 function getRandomElement(array){
@@ -909,6 +911,9 @@ function charAni(){
       }
     },500);
 
+if(gameOn === false){
+  return;
+}
 //Animation for the skins in the main page
   setInterval(function(){
    let path = $("#myFriend").attr('src');

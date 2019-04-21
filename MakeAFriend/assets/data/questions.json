@@ -91,6 +91,326 @@
       "c: France"
     ],
     "correctAnswer": "c"
+  },{
+    "question": "Which civil rights activist was famous for refusing to give up her seat on a bus?",
+    "answers": [
+      "a: Dorothy Day",
+      "b: Emma Willard",
+      "c: Rosa Parks"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Who was the original King of rock n' roll?",
+    "answers": [
+      "a: Elvis Presley",
+      "b: Michael Jackson",
+      "c: Mick Jagger"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What chemical is added to U.S. water supplies in the hopes of improving dental health?",
+    "answers": [
+      "a: Chlorine",
+      "b: Fluoride",
+      "c: Bromine"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "In the Iliad, Greek forces besiege the people of what kingdom?",
+    "answers": [
+      "a: Persia",
+      "b: Babylon",
+      "c: Troy"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Which English king was famous for beheading his wives?",
+    "answers": [
+      "a: King Henry VIII",
+      "b: King James III",
+      "c: King Edward I"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "Which U.S. president is thought to have taught himself how to read and write?",
+    "answers": [
+      "a: Woodrow Wilson",
+      "b: Abraham Lincoln",
+      "c: Theodore Roosevelt"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "According to the Bible, what was the name of the town which was the birthplace of Jesus Christ?",
+    "answers": [
+      "a: Nazareth",
+      "b: Jerusalem",
+      "c: Bethlehem"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Who was the Greek goddess associated with the moon?",
+    "answers": [
+      "a: Artemis",
+      "b: Apollo",
+      "c: Neptune"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "Name the traditional and popular wrestling sport of Japan.",
+    "answers": [
+      "a: Kendo",
+      "b: Sumo",
+      "c: Ikebana"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "What is the nickname of jazz trumpeter Louis Armstrong?",
+    "answers": [
+      "a: Al'arm",
+      "b: Bird",
+      "c: Satchmo"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "What was the unit of currency in Poland at the time of the second World War?",
+    "answers": [
+      "a: Lek",
+      "b: Zloty",
+      "c: Schilling"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Name the title of the 1818 novel by Mary Wollstonecraft Shelley.",
+    "answers": [
+      "a: Frankenstein",
+      "b: Dracula",
+      "c: The Mummy"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "In which African country is Timbuktu?",
+    "answers": [
+      "a: Algeria",
+      "b: Mali",
+      "c: Nigeria"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "What year did Albert Einstein die?",
+    "answers": [
+      "a: 1954",
+      "b: 1949",
+      "c: 1955"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "What are a group of Dolphins called?",
+    "answers": [
+      "a: Herd",
+      "b: Pod",
+      "c: School"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Who discovered Penicillin? ",
+    "answers": [
+      "a: Alexander Fleming",
+      "b: Marie Curie",
+      "c: George Orwell"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What date was President John F Kennedy assassinated?",
+    "answers": [
+      "a: November 24 1962",
+      "b: November 22 1963",
+      "c: November 22 1962"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Which singer’s real name is Stefani Joanne Angelina Germanotta?",
+    "answers": [
+      "a: Rihanna",
+      "b: Lady Gaga",
+      "c: Sia"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "How many players are there in a baseball team on the field?",
+    "answers": [
+      "a: 9",
+      "b: 12",
+      "c: 8"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "Hg is the chemical symbol of which element?",
+    "answers": [
+      "a: Gold",
+      "b: Nitrogen",
+      "c: Mercury"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "How many Stanley Cups did the Montreal Canadiens win?",
+    "answers": [
+      "a: 22",
+      "b: 24",
+      "c: 20"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Where is the smallest bone in the body?",
+    "answers": [
+      "a: Hand",
+      "b: Foot",
+      "c: Ear"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Which body muscle is the strongest?",
+    "answers": [
+      "a: Tongue",
+      "b: Quadriceps",
+      "c: Bicep"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What's Toronto's MLB team name?",
+    "answers": [
+      "a: Blue Jays",
+      "b: Canaris",
+      "c: Seagulls"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What are the first three words of the bible?",
+    "answers": [
+      "a: In the beginning",
+      "b: And God said",
+      "c: When Jesus watch"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What’s the real name of Siddartha Gautama?",
+    "answers": [
+      "a: Allah",
+      "b: Buddha",
+      "c: GOd"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Who plays John McLean in Die Hard",
+    "answers": [
+      "a: Morgan Freeman",
+      "b: Tom Cruise",
+      "c: Bruce Willis"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Which is the largest ocean?",
+    "answers": [
+      "a: Indian",
+      "b: Atlantis",
+      "c: Pacific"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "What is Darth Vader's real name?",
+    "answers": [
+      "a: Luke Skywalker",
+      "b: Anakin Skywalker",
+      "c: Chewbacca"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "What language has the most words?",
+    "answers": [
+      "a: English",
+      "b: French",
+      "c: Spanish"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What is the last horcruxes destroyed by Harry Potter?",
+    "answers": [
+      "a: Nagini",
+      "b: Marvolo Gaunt's Ring",
+      "c: Himself"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Who invented the microscope?",
+    "answers": [
+      "a: Antonie van Leeuwenhoek",
+      "b: Robert Microscope",
+      "c: Hans Lippershey"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "Which brother duo in hockey has the most points?",
+    "answers": [
+      "a: The Sedins",
+      "b: The Gretzkys ",
+      "c: The Richards"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "What is the capital of India",
+    "answers": [
+      "a: New Delhi",
+      "b: Mumbai",
+      "c: Chennai"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "Who said, “I think, therefore I am”?",
+    "answers": [
+      "a: Socrate",
+      "b: Marx",
+      "c: Descartes"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Who wrote the Ugly Duckling?",
+    "answers": [
+      "a: J.K. Rowling",
+      "b: Hans Christian Andersen",
+      "c: J.R.R. Tolkien"
+    ],
+    "correctAnswer": "b"
+  },{
+    "question": "Who painted the sistine chapel?",
+    "answers": [
+      "a: Michelangelo",
+      "b: Picasso",
+      "c: Danika Delorme"
+    ],
+    "correctAnswer": "a"
+  },{
+    "question": "What is the capital of Australia?",
+    "answers": [
+      "a: Melbourne",
+      "b: Sydney",
+      "c: Canberra"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "What year did Elvis Presley die?",
+    "answers": [
+      "a: 1982",
+      "b: 1969",
+      "c: 1977"
+    ],
+    "correctAnswer": "c"
+  },{
+    "question": "Where was Marco Polo’s home town?",
+    "answers": [
+      "a: Venice",
+      "b: Madrid",
+      "c: Lisbon"
+    ],
+    "correctAnswer": "a"
   }
   ]
 }

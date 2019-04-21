@@ -460,7 +460,7 @@ function backMenu(){
 
 //The neverending function that effects when talkin=true where if you're in the main menu and haven't done
 //anything in a while, it will randomly say stuff like "hey you there" or "boring"
-let smallTalk = ["boring","let's do something","hey","you there?"];
+let smallTalk = ["boring","let's do something","hey","you there?","hellooo","ugh","wanna play a game","wanna talk","well"];
 const beat = (time, array) => {
   setTimeout(()=> {
     let rng;
